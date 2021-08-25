@@ -1,10 +1,10 @@
 {
   "canvas": {
-    "version": "2.2.1",
+    "version": "2.2.2",
     "width": 2000,
     "height": 2000,
-    "scrollTop": -45.13958333333327,
-    "scrollLeft": -66.41250000000018,
+    "scrollTop": -37.939583333333275,
+    "scrollLeft": 0,
     "zoomLevel": 1,
     "show": {
       "tableComment": true,
@@ -164,7 +164,7 @@
           "active": false,
           "left": 634.4,
           "top": 267.2,
-          "zIndex": 224,
+          "zIndex": 1,
           "widthName": 60,
           "widthComment": 60
         },
@@ -361,10 +361,10 @@
           }
         ],
         "ui": {
-          "active": true,
+          "active": false,
           "left": 105.6,
           "top": 93.6,
-          "zIndex": 226,
+          "zIndex": 3,
           "widthName": 60,
           "widthComment": 60
         },
@@ -468,6 +468,29 @@
             "id": "58a00d7e-9421-41f5-a720-28a48518b21a"
           },
           {
+            "name": "reg_date",
+            "comment": "",
+            "dataType": "DATETIME",
+            "default": "",
+            "option": {
+              "autoIncrement": false,
+              "primaryKey": false,
+              "unique": false,
+              "notNull": true
+            },
+            "ui": {
+              "active": false,
+              "pk": false,
+              "fk": false,
+              "pfk": false,
+              "widthName": 60,
+              "widthComment": 60,
+              "widthDataType": 62.6328125,
+              "widthDefault": 60
+            },
+            "id": "77c75129-e073-4711-9bc0-e3a695931a12"
+          },
+          {
             "name": "isdeleted",
             "comment": "",
             "dataType": "VARCHAR2(10)",
@@ -495,7 +518,7 @@
           "active": false,
           "left": 140.8,
           "top": 450.4,
-          "zIndex": 225,
+          "zIndex": 20,
           "widthName": 63.39453125,
           "widthComment": 60
         },
@@ -581,7 +604,7 @@
             "58a00d7e-9421-41f5-a720-28a48518b21a"
           ],
           "x": 546.73505859375,
-          "y": 536.15,
+          "y": 546.4,
           "direction": "right"
         },
         "constraintName": "fk_users_to_comment",
