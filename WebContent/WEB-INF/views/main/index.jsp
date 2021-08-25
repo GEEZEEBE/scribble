@@ -24,22 +24,22 @@
 							<article class="post">
 								<header>
 									<div class="title">
-										<h2><a href="single.html">아무거나 끄적거려요</a></h2>
-										<p>아무말아무말아무말주저리주저리주저리</p>
+										<h2><a href="single.html">주 제목</a></h2>
+										<p>부 제목</p>
 									</div>
 									<div class="meta">
-										<time class="published" datetime="2015-11-01">November 1, 2015</time>
-										<a href="#" class="author"><span class="name">Jane Doe</span><img src="images/avatar.jpg" alt="" /></a>
+										<time class="published" datetime="2015-11-01">작성일</time>
+										<a href="#" class="author"><span class="name">작성자</span><img src="images/avatar.jpg" alt="" /></a>
 									</div>
 								</header>
 								<a href="single.html" class="image featured"><img src="images/pic01.jpg" alt="" /></a>
-								<p>Mauris neque quam, fermentum ut nisl vitae, convallis maximus nisl. Sed mattis nunc id lorem euismod placerat. Vivamus porttitor magna enim, ac accumsan tortor cursus at. Phasellus sed ultricies mi non congue ullam corper. Praesent tincidunt sed tellus ut rutrum. Sed vitae justo condimentum, porta lectus vitae, ultricies congue gravida diam non fringilla.</p>
+								<p>여기에는 내용을 입력합니다.</p>
 								<footer>
 									<ul class="actions">
-										<li><a href="single.html" class="button large">Continue Reading</a></li>
+										<li><a href="single.html" class="button large">Continue Reading(이거 살려야 하나?)</a></li>
 									</ul>
 									<ul class="stats">
-										<li><a href="#">General</a></li>
+										<li><a href="#">General(이거 있으면 private도 만들어야?)</a></li>
 										<li><a href="#" class="icon solid fa-heart">28</a></li>
 										<li><a href="#" class="icon solid fa-comment">128</a></li>
 									</ul>
