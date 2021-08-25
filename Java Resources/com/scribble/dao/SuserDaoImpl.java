@@ -10,7 +10,7 @@ import com.scribble.vo.SuserVo;
 
 public class SuserDaoImpl implements SuserDao{
 	
-	//Connection
+	//DB Connection
 	private Connection getConnection() throws SQLException {
 	    Connection conn = null;
 	    try {
@@ -69,7 +69,7 @@ public class SuserDaoImpl implements SuserDao{
 			conn = getConnection();
 
 			if(vo.getPassword() == "") {
-				String query = "update users set name = ? where user_id = ? and isdeleted = 'NULL' ";
+				String query = "update susers set name = ? where user_id = ? and isdeleted is NULL ";
 				pstmt = conn.prepareStatement(query);
 
 				pstmt.setString(1, vo.getName());
@@ -77,7 +77,7 @@ public class SuserDaoImpl implements SuserDao{
 				
 				count = pstmt.executeUpdate();
 			} else {
-				String query = "update users set name = ?, password = ? where user_id = ? and isdeleted = 'NULL' ";
+				String query = "update susers set name = ?, password = ? where user_id = ? and isdeleted is NULL ";
 				pstmt = conn.prepareStatement(query);
 
 				pstmt.setString(1, vo.getName());
@@ -105,7 +105,7 @@ public class SuserDaoImpl implements SuserDao{
 	}
 
 	//Delete users'info
-	public int delete(SuserVo vo) {
+	public int delete(int user_id) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		int count = 0;
@@ -113,12 +113,10 @@ public class SuserDaoImpl implements SuserDao{
 		try {
 			conn = getConnection();
 
-			String query = "delete from susers where user_id= ? and email=? and password= ? and isdeleted = 'NULL' ";
+			String query = "update susers set isdeleted = 'true' where user_id ";
 			pstmt = conn.prepareStatement(query);
 
-			pstmt.setInt(1, vo.getUser_id());
-			pstmt.setString(2, vo.getEmail());
-			pstmt.setString(3, vo.getPassword());
+			pstmt.setInt(1, user_id);
 
 			count = pstmt.executeUpdate();
 
@@ -140,7 +138,7 @@ public class SuserDaoImpl implements SuserDao{
 		return count;
 	}
 	
-	//get users'info - email&password
+	//Login
 	public SuserVo getUser(String email, String password) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -150,7 +148,7 @@ public class SuserDaoImpl implements SuserDao{
 		try {
 			conn = getConnection();
 
-			String query = "select user_id, name from users where email = ? and password = ?";
+			String query = "select user_id, name from susers where email = ? and password = ?";
 			pstmt = conn.prepareStatement(query);
 
 			pstmt.setString(1, email);
@@ -183,7 +181,7 @@ public class SuserDaoImpl implements SuserDao{
 		return vo;
 	}
 	
-	//get users'info - user_id
+	//Modify users' info
 	public SuserVo getUser(int user_id) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -193,7 +191,7 @@ public class SuserDaoImpl implements SuserDao{
 		try {
 			conn = getConnection();
 			
-			String query = "select user_id, email, name from users where user_id = ?";
+			String query = "select user_id, email, name from susers where user_id = ? and isdeleted is NULL ";
 
 			pstmt = conn.prepareStatement(query);
 

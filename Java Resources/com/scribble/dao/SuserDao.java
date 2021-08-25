@@ -8,7 +8,7 @@ public interface SuserDao {
 
 	public int update(SuserVo vo);
 	
-	public int delete(SuserVo vo);
+	public int delete(int user_id);
 
 	public SuserVo getUser(String email, String password);
 	

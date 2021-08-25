@@ -31,8 +31,8 @@ public class SuserServlet extends HttpServlet {
 			rd.forward(request, response);
 			
 		} else if("join".equals(actionName)) {
-			String name = request.getParameter("name");
 			String email = request.getParameter("email");
+			String name = request.getParameter("name");
 			String password = request.getParameter("password");
 			
 			SuserVo vo = new SuserVo(name, email, password);

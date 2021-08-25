@@ -16,7 +16,7 @@
 					<c:otherwise>
 						<!-- 로그인 후 -->
 						<li><a href="/scribble/main">Scribble</a></li>
-						<li><a href="/scribble/user?a=modify">Modify My Info</a></li>
+						<li><a href="/scribble/user?a=modifyform">Modify My Info</a></li>
 						<li><a href="/scribble/user?a=logout">Logout</a></li>
 					</c:otherwise>
 					</c:choose>
@@ -49,7 +49,7 @@
 				<section>
 					<ul class="links">
 						<li>
-							<a href="#">
+							<a href="/scribble/main">
 								<h3>Scribble</h3>
 								<p>아무거나 주절여봐요</p>
 							</a>
@@ -64,7 +64,7 @@
 						</c:when>
 						<c:otherwise>
 							<!-- 로그인 후 -->
-							<li><a href="/scribble/user?a=modify">
+							<li><a href="/scribble/user?a=modifyform">
                             	<h3>Modify My Info<h3>
                             	<p>회원정보수정</p></a>
                             </li>

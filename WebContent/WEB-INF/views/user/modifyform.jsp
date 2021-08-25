@@ -27,15 +27,17 @@
 						
 						<label class="block-label" for="name">Name 이름</label>
 						<input id="name" name="name" type="text" value="${suserVo.name }" />
-	
+						<br>
 						<label class="block-label" for="email">Email 이메일</label>
 						<strong>${suserVo.email }</strong>
-						
+						<br>
+						<br>
 						<label class="block-label">Password 비밀번호</label>
 						<input name="password" type="password" value="" />
-						
+						<br>
+						<h2 align="center">
 						<input type="submit" value="수정완료">
-						
+						</h2>
 					</form>
 				</div><!-- /user -->
 			</div><!-- /content -->
