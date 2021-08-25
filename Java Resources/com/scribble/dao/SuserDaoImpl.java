@@ -69,7 +69,7 @@ public class SuserDaoImpl implements SuserDao{
 			conn = getConnection();
 
 			if(vo.getPassword() == "") {
-				String query = "update users set name = ? where user_id = ?";
+				String query = "update users set name = ? where user_id = ? and isdeleted = 'NULL' ";
 				pstmt = conn.prepareStatement(query);
 
 				pstmt.setString(1, vo.getName());
@@ -77,7 +77,7 @@ public class SuserDaoImpl implements SuserDao{
 				
 				count = pstmt.executeUpdate();
 			} else {
-				String query = "update users set name = ?, password = ? where user_id = ?";
+				String query = "update users set name = ?, password = ? where user_id = ? and isdeleted = 'NULL' ";
 				pstmt = conn.prepareStatement(query);
 
 				pstmt.setString(1, vo.getName());
@@ -113,7 +113,7 @@ public class SuserDaoImpl implements SuserDao{
 		try {
 			conn = getConnection();
 
-			String query = "delete from susers where user_id= ? and email=? and password= ?";
+			String query = "delete from susers where user_id= ? and email=? and password= ? and isdeleted = 'NULL' ";
 			pstmt = conn.prepareStatement(query);
 
 			pstmt.setInt(1, vo.getUser_id());
