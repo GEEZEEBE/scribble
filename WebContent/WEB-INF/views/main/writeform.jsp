@@ -5,7 +5,7 @@
 <!DOCTYPE HTML>
 <html>
 	<head>
-		<title>Single - Future Imperfect by HTML5 UP</title>
+		<title>SINGLE - SCRIBBLE PAPERS</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="assets/css/main.css" />
@@ -32,13 +32,21 @@
 									</div>
 								</header>
 								<!-- <span class="image featured"><img src="images/pic01.jpg" alt="" /></span>  -->
+									
+								<form method="post" action="#">
 									<div class="row gtr-uniform">
 										<div class="col-6 col-12-xsmall">
-													<input type="text" name="demo-name" id="demo-name" value="" placeholder="Title" />
+											<input type="text" name="demo-name" id="demo-name" value="" placeholder="Title" />
 										</div>
 										<div class="col-12">
 											<textarea name="demo-message" id="demo-message" placeholder="Enter your message" rows="6"></textarea>
 										</div>
+										<div class="col-12">
+											<div class="col-6 col-12-xsmall">
+												<h1>image upload</h1><input type="file" name="demo-name" id="demo-name" value="Image" />
+											</div>
+										</div>
+										<br>
 										<div class="col-12">
 											<ul class="actions">
 												<li><input type="submit" value="Done" /></li>
@@ -46,7 +54,7 @@
 											</ul>
 										</div>
 									</div>
-											
+								</form>											
 							</article>
 
 					</div>
