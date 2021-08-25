@@ -27,7 +27,7 @@
 						<input type="hidden" name="a" value="modify">
 						
 						<label class="block-label" for="name">Name 이름</label>
-						<input id="name" name="name" type="text" value="${suserVo.name }" />
+
 						<br>
 						<label class="block-label" for="email">Email 이메일</label>
 						<strong>${suserVo.email }</strong>
@@ -36,6 +36,7 @@
 						<label class="block-label">Password 비밀번호</label>
 						<input name="password" type="password" value="" />
 						<br>
+<<<<<<< HEAD
 						<input align="center" type="submit" value="수정완료">
 						<br>
 						<br>
@@ -43,6 +44,12 @@
 						<div class="bottom">
 							<a href="/scribble/user?a=delete&user_id=${suserVo.user_id }">회원탈퇴</a>
 						</div>
+=======
+						<h2 align="center">
+						<input type="submit" value="수정완료">
+						</h2>
+
+>>>>>>> 5ab3834ec001986a47fc8af9acc44124e669e25a
 					</form>
 				</div><!-- /user -->
 			</div><!-- /content -->
