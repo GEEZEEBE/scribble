@@ -3,8 +3,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%> 
 <% pageContext.setAttribute( "newLine", "\n" ); %>
 
-<%@ page import="com.scribble.dao.*"%>
-<%@ page import="com.scribble.vo.*"%>
+<%@ page import="com.scribble.dao.SuserDaoImpl"%>
+<%@ page import="com.scribble.dao.SuserDao"%>
+<%@ page import="com.scribble.vo.SuserVo"%>
 <%@ page import="java.util.List"%>
 
 <!DOCTYPE html>
@@ -35,9 +36,13 @@
 						<label class="block-label">Password 비밀번호</label>
 						<input name="password" type="password" value="" />
 						<br>
-						<h2 align="center">
-						<input type="submit" value="수정완료">
-						</h2>
+						<input align="center" type="submit" value="수정완료">
+						<br>
+						<br>
+						<br>
+						<div class="bottom">
+							<a href="/scribble/user?a=delete&user_id=${suserVo.user_id }">회원탈퇴</a>
+						</div>
 					</form>
 				</div><!-- /user -->
 			</div><!-- /content -->
