@@ -68,7 +68,6 @@
 					</section>
 
 
-
 		<!-- Header -->
 		<header id="header">
 			<h1><a href="/scribble/main">SCRIBBLE PAPERS</a></h1>
