@@ -42,7 +42,6 @@ public class SuserServlet extends HttpServlet {
 			
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/user/joinsuccess.jsp");
 			rd.forward(request, response);
-			
 		//Update users' info 	
 		} else if("modify".equals(actionName)){
 			String name = request.getParameter("name");
@@ -86,20 +85,19 @@ public class SuserServlet extends HttpServlet {
 		} else if("login".equals(actionName)){
 			String email = request.getParameter("email");
 			String password =request.getParameter("password");
-			
 			SuserDao dao = new SuserDaoImpl();
 			SuserVo vo = dao.getUser(email, password);
 			
 			if(vo==null) {
-				System.out.println("Login fail");
+				System.out.println("실패");
 				response.sendRedirect("/scribble/user?a=loginform&result=fail");
-			} else {
-				System.out.println("Login success");
+			}else {
+				System.out.println("성공");
 				HttpSession session = request.getSession(true);
 				session.setAttribute("authUser", vo);
 				
 				response.sendRedirect("/scribble/main");
-				return;
+				//return;
 			}
 		// Logout	
 		} else if("logout".equals(actionName)){
@@ -107,7 +105,19 @@ public class SuserServlet extends HttpServlet {
 			session.removeAttribute("authUser");
 			session.invalidate();
 			response.sendRedirect("/scribble/main");
+		// Delete User	
+		} else if("delete".equals(actionName)){
+			int user_id = Integer.parseInt(request.getParameter("user_id"));
+			SuserVo vo = new SuserVo();
+			vo.setUser_id(user_id);
 			
+			SuserDao dao = new SuserDaoImpl();
+			dao.delete(user_id);
+			
+			HttpSession session = request.getSession();
+			session.removeAttribute("authUser");
+			session.invalidate();
+			response.sendRedirect("/scribble/main");
 		} else {
 			WebUtil.redirect(request, response, "/scribble/main");
 		}

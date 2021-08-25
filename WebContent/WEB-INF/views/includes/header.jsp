@@ -1,6 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
 
+<<<<<<< HEAD
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+=======
 
 		<!-- Wrapper -->
 			<div id="wrapper">
@@ -67,6 +69,7 @@
 
 					</section>
 
+>>>>>>> 5ab3834ec001986a47fc8af9acc44124e669e25a
 
 		<!-- Header -->
 		<header id="header">
@@ -78,7 +81,7 @@
 						<!-- 로그인 전 -->
 						<li><a href="/scribble/main">Scribble</a></li>
 						<li><a href="/scribble/user?a=joinform">SignUp</a></li>
-						<li><a href="/scribble/user?a=login">Login</a></li>
+						<li><a href="/scribble/user?a=loginform">Login</a></li>
 					</c:when>
 					<c:otherwise>
 						<!-- 로그인 후 -->
@@ -146,7 +149,7 @@
 					<c:choose>
 						<c:when test="${authUser == null }">
 							<!-- 로그인 전 -->
-						<li><a href="/scribble/user?a=login" class="button large fit">LogIn</a></li>
+						<li><a href="/scribble/user?a=loginform" class="button large fit">LogIn</a></li>
 						</c:when>
 						<c:otherwise>
 							<!-- 로그인 후 -->	
