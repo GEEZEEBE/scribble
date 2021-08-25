@@ -20,26 +20,31 @@
 				<div id="user">
 	
 					<form id="join-form" name="joinForm" method="post" action="/scribble/user">
-					  	<input type="hidden" name="a" value="join">					  	
-			  	
-						<label class="block-label" for="name">이름</label>
+					  	<input type="hidden" name="a" value="join">
+					  						  	
+			  			<h2 class="blind" align="center">Scribble 회원가입</h2>
+						
+						<label class="block-label" for="name">Name 이름 (필수)</label>
 						<input id="name" name="name" type="text" value="">
-	
-						<label class="block-label" for="email">이메일</label>
+						<br>
+						<label class="block-label" for="email">Email 이메일 (필수)</label>
 						<input id="email" name="email" type="text" value="">
-						<input type="button" value="id 중복체크">
-						
-						<label class="block-label">패스워드</label>
+						<br>
+						<label class="block-label">Password 비밀번호 (필수)</label>
 						<input name="password" type="password" value="">
+						<br>
+						<ul class="terms_bx_list">
+                            <li class="terms_bx">
+									<span class="input_chk">
+										<input type="checkbox" id="termsService" name="termsService" class="chk">
+										<label for="termsService">이용약관 동의<span class="terms_necessary">(필수)</span></label>
+									</span>
+                             </li>
+                        </ul>
 						
-						<fieldset>
-							<legend>약관동의</legend>
-							<input id="agree-prov" type="checkbox" name="agreeProv" value="y">
-							<label>서비스 약관에 동의합니다.</label>
-						</fieldset>
-						
+						<h2 align="center">
 						<input type="submit" value="가입하기">
-
+						</h2>
 					</form>
 					
 				</div><!-- /user -->
