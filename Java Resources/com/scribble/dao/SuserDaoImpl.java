@@ -162,12 +162,7 @@ public class SuserDaoImpl implements SuserDao{
 		try {
 			conn = getConnection();
 
-<<<<<<< HEAD
 			String query = "update susers set isdeleted = 'true' where user_id = ? ";
-=======
-			String query = "update susers set isdeleted = 'true' where user_id ";
-
->>>>>>> 5ab3834ec001986a47fc8af9acc44124e669e25a
 			pstmt = conn.prepareStatement(query);
 
 			pstmt.setInt(1, user_id);
