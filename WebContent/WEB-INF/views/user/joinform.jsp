@@ -13,8 +13,7 @@
 <body>
 
 	<div id="container">
-		<c:import url="/WEB-INF/views/includes/header.jsp"></c:import>
-			
+		<c:import url="/WEB-INF/views/includes/header.jsp"></c:import><!-- /header -->	
 		<div id="wrapper">
 			<div id="content">
 				<div id="user">
@@ -23,12 +22,12 @@
 					  	<input type="hidden" name="a" value="join">
 					  						  	
 			  			<h2 class="blind" align="center">Scribble 회원가입</h2>
-						
-						<label class="block-label" for="name">Name 이름 (필수)</label>
-						<input id="name" name="name" type="text" value="">
 						<br>
 						<label class="block-label" for="email">Email 이메일 (필수)</label>
 						<input id="email" name="email" type="text" value="">
+						<br>
+						<label class="block-label" for="name">Name 이름 (필수)</label>
+						<input id="name" name="name" type="text" value="">
 						<br>
 						<label class="block-label">Password 비밀번호 (필수)</label>
 						<input name="password" type="password" value="">
@@ -43,7 +42,7 @@
                         </ul>
 						
 						<h2 align="center">
-						<input type="submit" value="가입하기">
+							<input type="submit" value="가입하기">
 						</h2>
 					</form>
 					
