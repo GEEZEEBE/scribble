@@ -164,7 +164,7 @@ public class SCommentDaoImpl implements SCommentDao {
 			pstmt.setInt(3, vo.getUserId());
 
 			insertedCount = pstmt.executeUpdate();
-
+			
 			System.out.println(insertedCount + "건 등록");
 
 		} catch (SQLException e) {

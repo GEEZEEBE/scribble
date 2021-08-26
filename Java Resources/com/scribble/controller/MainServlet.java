@@ -14,6 +14,8 @@ import javax.servlet.http.HttpSession;
 
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
+import com.scribble.dao.SCommentDao;
+import com.scribble.dao.SCommentDaoImpl;
 import com.scribble.dao.SboardDao;
 import com.scribble.dao.SboardDaoImpl;
 import com.scribble.etc.PageCreator;
@@ -30,11 +32,6 @@ public class MainServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 			
-	////////////////////////////////////////////////////////////////////////////////
-		
-		
-		request.setCharacterEncoding("UTF-8");
-		
 		String actionName = request.getParameter("a");
 		System.out.println("board:" + actionName);
 
@@ -43,12 +40,6 @@ public class MainServlet extends HttpServlet {
 			if (request.getParameter("keyword") != null) {
 				keyword = request.getParameter("keyword");
 			}
-//			if (request.getParameter("reload") != null){
-//				if(request.getParameter("reload").equals("true")) {
-//					keyword = "";  reset 버튼 => 리스트 초기화
-//				}
-//			}
-
 			
 			int page = 1;
 			if (request.getParameter("page") != null) {
@@ -66,10 +57,22 @@ public class MainServlet extends HttpServlet {
 			System.out.println(pc);
 			
 			List<SboardSuserVo> list = dao.getList(pvo);
+			List<SboardSuserVo> list4 = dao.getHitTop4();
+			
+			HttpSession session = request.getSession();
+			SuserVo authUser = (SuserVo)session.getAttribute("authUser");
+
+			List<SboardSuserVo> listMy = null;
+			if (authUser != null) {
+				int userNo = authUser.getUser_id();
+				listMy = dao.getMyList(page);
+			}
 
 //			System.out.println(list);
 
 			request.setAttribute("list", list);		// 뿌려줄 DB 묶음
+			request.setAttribute("list4", list4);
+			request.setAttribute("listMy", listMy);
 			request.setAttribute("pc", pc);			// 페이지 표시	
 			request.setAttribute("keyword", keyword); //검색창에 키워드 유지하려고?
 			WebUtil.forward(request, response, "/WEB-INF/views/main/index.jsp");
@@ -100,7 +103,7 @@ public class MainServlet extends HttpServlet {
 			request.setAttribute("vo", vo);
 			request.setAttribute("page", page);
 			request.setAttribute("keyword", keyword);
-			WebUtil.forward(request, response, "/WEB-INF/views/main/index.jsp");
+			WebUtil.forward(request, response, "/WEB-INF/views/main/single.jsp");
 			// view.jsp에 뿌리기
 			
 		} else if ("modifyform".equals(actionName)) {

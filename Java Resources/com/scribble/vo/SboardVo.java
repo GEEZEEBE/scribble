@@ -62,8 +62,8 @@ public class SboardVo {
 	public SboardVo() {
 		super();
 	}
-	public SboardVo(int board_id, String title, String content, int hit, String reg_date, String img_name,
-			String isdeleted, int user_id) {
+	public SboardVo(int board_id, String title, String content, int hit, String reg_date,
+			String img_name, String isdeleted, int user_id) {
 		super();
 		this.board_id = board_id;
 		this.title = title;
@@ -74,12 +74,15 @@ public class SboardVo {
 		this.isdeleted = isdeleted;
 		this.user_id = user_id;
 	}
+	
 	@Override
 	public String toString() {
 		return "SboardVo [board_id=" + board_id + ", title=" + title + ", content=" + content + ", hit=" + hit
-				+ ", reg_date=" + reg_date + ", img_name=" + img_name + ", isdeleted=" + isdeleted + ", user_id="
-				+ user_id + "]";
+				+ ", reg_date=" + reg_date + ", img_name=" + img_name + ", isdeleted="
+				+ isdeleted + ", user_id=" + user_id + "]";
 	}
+
+
 
 		
 	

@@ -71,10 +71,18 @@ START WITH 1 ;
 INSERT INTO susers VALUES (seq_susers_no.nextval, 'test@test.test', '홍길동', '1234', null);
 SELECT * FROM susers;
 
-INSERT INTO sboard VALUES (seq_sboard_no.nextval, '제목 테스트', '내용 테스트', 0, SYSDATE, NULL, NULL, 1);
-SELECT * FROM sboard;
+INSERT INTO sboard VALUES (seq_sboard_no.nextval, '제목 테스트', '내용 테스트', 5, SYSDATE, 'pic01.jpg', NULL, 1);
+SELECT * FROM sboard ORDER BY hit DESC;
 
 INSERT INTO scomment VALUES (seq_scomment_no.nextval, '코멘트 내용 테스트', 1, 1, SYSDATE, NULL);
 SELECT * FROM scomment;
 
-
+SELECT ROWNUM AS RNUM, A.*								
+FROM ( SELECT *			
+	   FROM sboard b					
+	   JOIN susers u					
+	   ON b.user_id = u.user_id 		
+	   WHERE b.isdeleted is NULL		
+	   ORDER BY b.hit DESC			
+) A									
+WHERE ROWNUM < 5;							
