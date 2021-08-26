@@ -12,9 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.javaex.dao.GuestbookDao;
-import com.javaex.dao.GuestbookDaoImpl;
-import com.javaex.vo.GuestbookVo;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 import com.scribble.dao.SCommentDao;
