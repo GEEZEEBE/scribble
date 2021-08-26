@@ -20,6 +20,8 @@
 					<div id="main">
 
 						<!-- Post -->
+						<form class="board-form" method="post" action="/scribble/main">
+						<input type = "hidden" name = "a" value="write">
 							<article class="post">
 								<header>
 									<div class="title">
@@ -27,17 +29,17 @@
 										<p>주절주절 써 봅니다</p>
 									</div>
 									<div class="meta">
-										<time class="published" datetime="2015-11-01">November 1, 2015</time>
-										<a href="#" class="author"><span class="name">사용자이름</span><img src="images/avatar.jpg" alt="" /></a>
+										<time class="published" datetime="2015-11-01">November 1, 2015(하드코딩)</time>
+										<a href="#" class="author"><span class="name">이순신</span><img src="images/avatar.jpg" alt="" /></a>
 									</div>
 								</header>
 								<!-- <span class="image featured"><img src="images/pic01.jpg" alt="" /></span>  -->
 									<div class="row gtr-uniform">
 										<div class="col-6 col-12-xsmall">
-													<input type="text" name="demo-name" id="demo-name" value="" placeholder="Title" />
+													<input type="text" name="title" id="demo-name" value="" placeholder="Title" />
 										</div>
 										<div class="col-12">
-											<textarea name="demo-message" id="demo-message" placeholder="Enter your message" rows="6"></textarea>
+											<textarea name="content" id="demo-message" placeholder="Enter your message" rows="6"></textarea>
 										</div>
 										<div class="col-12">
 											<ul class="actions">
@@ -48,7 +50,7 @@
 									</div>
 											
 							</article>
-
+						</form>
 					</div>
 
 

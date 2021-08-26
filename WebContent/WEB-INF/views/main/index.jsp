@@ -35,13 +35,13 @@
 									</div>
 								</header>
 								<a href="single.html" class="image featured"><img src="images/pic01.jpg" alt="" /></a>
-								<p>${vo.title}</p>
+								<p>${vo.content}</p>
 								<footer>
 									<ul class="actions">
-										<li><a href="single.html" class="button large">Continue Reading(이거 살려야 하나?)</a></li>
+										<li><a href="single.html" class="button large">Continue Reading</a></li>
 									</ul>
 									<ul class="stats">
-										<li><a href="#">General(이거 있으면 private도 만들어야?)</a></li>
+										<li><a href="#">General(???)</a></li>
 										<li><a href="#" class="icon solid fa-heart">${vo.hit}</a></li>
 										<li><a href="#" class="icon solid fa-comment">128</a></li>
 									</ul>
@@ -49,57 +49,7 @@
 								</c:forEach>
 							</article>
 
-						<!-- Post -->
-							<article class="post">
-								<header>
-									<div class="title">
-										<h2><a href="single.html">주 제목 22</a></h2>
-										<p>부 제목2222</p>
-									</div>
-									<div class="meta">
-										<time class="published" datetime="2015-10-25">작성일222</time>
-										<a href="#" class="author"><span class="name">작성자222</span><img src="images/avatar.jpg" alt="" /></a>
-									</div>
-								</header>
-								<a href="single.html" class="image featured"><img src="images/pic02.jpg" alt="" /></a>
-								<p>모든 것이 원점으로 돌아간 상황. 그렇다고 해서 변화가 없는 건 아니다. 케인의 대우가 달라졌다. 팀에 남겠다는 뜻을 밝히자, 토트넘 다니엘 레비 회장이 케인에게 큰 선물을 안겼다. 주급을 10만파운드(약 1억6000만원)나 확 인상해준 것이다. 이제 케인은 주급 33만파운드(약 5억3000만원)를 받게 된다.</p>
-								<footer>
-									<ul class="actions">
-										<li><a href="single.html" class="button large">Continue Reading</a></li>
-									</ul>
-									<ul class="stats">
-										<li><a href="#">General</a></li>
-										<li><a href="#" class="icon solid fa-heart">28</a></li>
-										<li><a href="#" class="icon solid fa-comment">128</a></li>
-									</ul>
-								</footer>
-							</article>
 
-						<!-- Post -->
-							<article class="post">
-								<header>
-									<div class="title">
-										<h2><a href="single.html">주 제목 33</a></h2>
-										<p>부 제목3333</p>
-									</div>
-									<div class="meta">
-										<time class="published" datetime="2015-10-22">작성일333</time>
-										<a href="#" class="author"><span class="name">작성자333</span><img src="images/avatar.jpg" alt="" /></a>
-									</div>
-								</header>
-								<a href="single.html" class="image featured"><img src="images/pic03.jpg" alt="" /></a>
-								<p>333 여기에는 내용을 입력합니다. 수 개월간 떠들썩하게 진행됐던 해리 케인 '이적사가'가 대단원의 막을 내렸다. 소란의 크기에 비하면 허무한 결말, 케인이 결국 현 소속팀인 토트넘 홋스퍼에 남겠다고 직접 선언했다. 케인의 합류를 오매불망 기다리던 맨체스터시티는 허탈해졌다. 들끓었던 이적시장도 다시 잠잠해지게 됐다.</p>
-								<footer>
-									<ul class="actions">
-										<li><a href="single.html" class="button large">Continue Reading</a></li>
-									</ul>
-									<ul class="stats">
-										<li><a href="#">General</a></li>
-										<li><a href="#" class="icon solid fa-heart">28</a></li>
-										<li><a href="#" class="icon solid fa-comment">128</a></li>
-									</ul>
-								</footer>
-							</article>
 
 						<!-- Pagination -->
 							<ul class="actions pagination">

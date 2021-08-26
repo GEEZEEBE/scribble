@@ -201,8 +201,10 @@ public class SboardDaoImpl implements SboardDao {
 			pstmt.setString(1, vo.getTitle());
 			pstmt.setString(2, vo.getContent());						
 			pstmt.setString(3, vo.getImg_name());
-			//user_id
-
+			pstmt.setInt(4, vo.getUser_id());
+			
+			
+			System.out.println(pstmt);
 			insertedCount = pstmt.executeUpdate();
 
 			System.out.println(insertedCount + "건 등록");
@@ -314,7 +316,7 @@ public class SboardDaoImpl implements SboardDao {
 			conn = getConnection();
 			
 			if (keyword.equals("null") || keyword.equals("")) {
-				String query = "SELECT COUNT(no)			" +
+				String query = "SELECT COUNT(board_id)			" +
 							   "FROM sboard					" +
 							   "WHERE isdeleted is NULL		";
 								
