@@ -25,8 +25,7 @@ public class SuserDaoImpl implements SuserDao{
 	      System.err.println("JDBC 드라이버 로드 실패!");
 	    }
 	    return conn;
-	  }
-	
+	  }	
 	//List
 	public List<SuserVo> getList() {
 		Connection conn = null;
@@ -66,8 +65,7 @@ public class SuserDaoImpl implements SuserDao{
 			}
 		}
 		return list;
-	}
-	
+	}	
 	//Insert users' info
 	public int insert(SuserVo vo) {
 		Connection conn = null;
@@ -103,7 +101,6 @@ public class SuserDaoImpl implements SuserDao{
 		}
 		return count;
 	}
-
 	//Update users' info
 	public int update(SuserVo vo) {
 		Connection conn = null;
@@ -152,7 +149,6 @@ public class SuserDaoImpl implements SuserDao{
 		}
 		return count;
 	}
-
 	//Delete users'info
 	public int delete(int user_id) {
 		Connection conn = null;
@@ -185,8 +181,7 @@ public class SuserDaoImpl implements SuserDao{
 			}
 		}
 		return count;
-	}
-	
+	}	
 	//Login
 	public SuserVo getUser(String email, String password) {
 		Connection conn = null;
