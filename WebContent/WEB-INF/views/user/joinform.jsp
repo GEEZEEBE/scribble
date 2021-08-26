@@ -28,23 +28,24 @@
 						<div class="form col-md-6">
 							<div class="form-row">
 								<div class="fixAlignment">
-									<input type="text" id="email" name="email" class="form-control" aria-label="email" placeholder="EMAIL" value=""/>
-                        		</div>
-                        	<br>
-                        	<input type="button" id="CheckId" value="Email Check">
-							<p id="notice"></p>
-							<div class="form-row">
-								<div class="fixAlignment">
                              		<input type="text" id="name" name="name" class="form-control" aria-label="name" placeholder="NAME" value="" />
                            		</div>
                             </div>
                             <br>
+							<div class="form-row">
+								<div class="fixAlignment">
+									<label class="block-label" for="email"></label>
+									<input type="text" id="email" name="email" class="form-control" aria-label="email" placeholder="EMAIL" value=""/>
+	                        		<br>
+	                        		<input type="button" id="CheckId" value="Email Check">
+									<p id="notice"></p>
+	                        	</div>
+                        	</div>
                             <div class="form-row">
                                 <div class="fixAlignment">
                                     <input id="password" name="password" type="password" maxlength="16" class="form-control" aria-label="password" placeholder="PASSWORD" value="" />
                                 </div>
                             </div>
-							</div>
                         </div>
                         <br>
 						<fieldset class="blind" align="center">
@@ -54,7 +55,7 @@
 							<label for="agree-prov">서비스 약관에 동의합니다.</label>
 						</fieldset>	
 							<h3 class="blind" align="center">
-							<input type="submit" value="가입하기" id="submitBtn" disabled="true" />
+							<input type="submit" value="SignUp" id="submitBtn" disabled="true" />
 							</h3>
 					</form>
 				</div><!-- /user -->
