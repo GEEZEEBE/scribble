@@ -26,7 +26,7 @@ public class SuserServlet extends HttpServlet {
 		String actionName =request.getParameter("a");
 		System.out.println("user:" + actionName);
 		
-		//Insert users' info
+		// Insert users' info
 		if("joinform".equals(actionName)) {
 			
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/user/joinform.jsp");
@@ -45,7 +45,7 @@ public class SuserServlet extends HttpServlet {
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/user/joinsuccess.jsp");
 			rd.forward(request, response);
 			
-		//Update users' info 	
+		// Update users' info 	
 		} else if("modify".equals(actionName)){
 			try {	// 주소 직접 접근 방지
 				HttpSession session = request.getSession();
@@ -79,7 +79,7 @@ public class SuserServlet extends HttpServlet {
 					WebUtil.redirect(request, response, "/scribble/user?a=loginform");
 			}
 			
-		//Update form
+		// Update form
 		} else if("modifyform".equals(actionName)) {
 			try {
 				HttpSession session = request.getSession();
@@ -159,7 +159,7 @@ public class SuserServlet extends HttpServlet {
 					WebUtil.redirect(request, response, "/scribble/user?a=loginform");
 			}
 			
-		//ID check	
+		// ID check	
 		} else if("checkid".equals(actionName)) {
 			String email = request.getParameter("email");
 		

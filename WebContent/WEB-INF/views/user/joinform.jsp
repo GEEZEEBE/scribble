@@ -22,38 +22,49 @@
 					<form id="join-form" name="joinForm" method="post" action="/scribble/user">
 					  	<input type="hidden" name="a" value="join">
 					  						  	
-			  			<h2 class="blind" align="center">Scribble 회원가입</h2>
-						<br>
-						<label class="block-label" for="email">Email (필수)</label>
-						<input id="email" name="email" type="text" value="">
-						<input type="button" id="CheckId" value="Email 중복체크">
-						<p id="notice"></p>
-						<br>
-						<label class="block-label" for="name">Name (필수)</label>
-						<input id="name" name="name" type="text" value="">
-						<br>
-						<label class="block-label">Password (필수)</label>
-						<input name="password" type="password" value="">
-						<br>
-						<fieldset>
-							<legend>약관동의</legend>
-							<input id="agree-prov" type="checkbox" name="agreeProv" value="y">
+			  			<h2 class="blind" align="center">SignUp</h2>
+			  			<h3 class="blind" align="center">회원가입</h3>
+			  			
+						<div class="form col-md-6">
+							<div class="form-row">
+							<div class="fixAlignment">
+								<label class="block-label" for="email">EMAIL</label>
+								<input type="text" id="email" name="email" class="form-control" aria-label="email" value=""/>
+                        	</div>
+                        	<br>
+                        	<input type="button" id="CheckId" value="Email Check">
+							<p id="notice"></p>
+							<div class="form-row">
+							<div class="fixAlignment">
+									<label class="block-label" for="name">NAME</label>
+                                    <input type="text" id="Name" name="Name" class="form-control" aria-label="Last Name" value="" />
+                                </div>
+                            </div>
+                            <br>
+                            <div class="form-row">
+                                <div class="fixAlignment">
+                                    <label class="block-label">PASSWORD</label>
+                                    <input id="password" name="password" type="password" maxlength="16" class="form-control" aria-label="Password" value="" />
+                                </div>
+                            </div>
+							</div>
+                        </div>
+                        <br>
+						<fieldset class="blind" align="center">
+							<legend>[ 약관동의 ]</legend>
+							<br>
+							<input id="agree-prov" type="checkbox" name="agreeProv" value="y" />
 							<label>서비스 약관에 동의합니다.</label>
-						</fieldset>
-						
-						<input type="submit" value="가입하기" id="submitBtn" disabled="true">
+						</fieldset>	
+							<h3 class="blind" align="center">
+							<input type="submit" value="가입하기" id="submitBtn" disabled="true" />
+							</h3>
 					</form>
-					
 				</div><!-- /user -->
 			</div><!-- /content -->
 		</div><!-- /wrapper -->
 	</div> <!-- /container -->
-	<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/browser.min.js"></script>
-			<script src="assets/js/breakpoints.min.js"></script>
-			<script src="assets/js/util.js"></script>
-			<script src="assets/js/main.js"></script>
+<c:import url="/WEB-INF/views/includes/footer.jsp"></c:import><!-- /footer -->
 </body>
 <script>
 
