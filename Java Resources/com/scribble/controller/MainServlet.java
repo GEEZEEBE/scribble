@@ -111,16 +111,18 @@ public class MainServlet extends HttpServlet {
 			
 		} else if ("modifyform".equals(actionName)) {
 			try {	// 주소 직접 접근 방지
+				
 				HttpSession session = request.getSession();
 				SuserVo authUser = (SuserVo)session.getAttribute("authUser");
 				int userNo = authUser.getUser_id();  
 			
 				String keyword = request.getParameter("keyword");
-				int board_id = Integer.parseInt(request.getParameter("board_id"));
+				int board_id = Integer.parseInt(request.getParameter("no"));
 				SboardDao dao = new SboardDaoImpl(); 
 				SboardVo vo = dao.get(board_id);
-				
+				System.out.println(vo);
 				if (userNo != vo.getUser_id()) {
+					System.out.println(vo);
 					System.out.println("Unauthorized Access");
 					WebUtil.redirect(request, response, "/scribble/main?a=list");
 				} else {
@@ -129,7 +131,7 @@ public class MainServlet extends HttpServlet {
 					request.setAttribute("vo", vo);
 					request.setAttribute("page", page);
 					request.setAttribute("keyword", keyword);
-					WebUtil.forward(request, response, "/WEB-INF/views/board/modifyform.jsp");
+					WebUtil.forward(request, response, "/WEB-INF/views/main/modifyform.jsp");
 				}
 			} catch (Exception e) {
 				System.out.println(e);
@@ -143,7 +145,7 @@ public class MainServlet extends HttpServlet {
 				SuserVo authUser = (SuserVo)session.getAttribute("authUser");
 				int userNo = authUser.getUser_id();
 				
-				int board_id = Integer.parseInt(request.getParameter("board_id"));
+				int board_id = Integer.parseInt(request.getParameter("no"));
 				SboardDao dao = new SboardDaoImpl();
 				SboardSuserVo vo = dao.get(board_id);
 	
@@ -152,7 +154,8 @@ public class MainServlet extends HttpServlet {
 					WebUtil.redirect(request, response, "/scribble/main?a=list");
 				} else {
 					String title = request.getParameter("title");
-					String content = request.getParameter("content");					
+					String content = request.getParameter("content");	
+					String img_name = request.getParameter("img_name");
 					int page = Integer.parseInt(request.getParameter("page"));
 					String keyword = request.getParameter("keyword");
 					
@@ -165,7 +168,7 @@ public class MainServlet extends HttpServlet {
 					request.setAttribute("vo", vo);
 					request.setAttribute("page", page);
 					request.setAttribute("keyword", keyword);
-					WebUtil.forward(request, response, "/WEB-INF/views/board/view.jsp");
+					WebUtil.forward(request, response, "/WEB-INF/views/main/single.jsp");
 				}
 			} catch (Exception e) {
 				System.out.println(e);

@@ -39,7 +39,7 @@
 					</div>
 					<footer>						
 						<ul class="actions">
-							<li><a href="modify?a=view&no=${vo.board_id}&page=${pc.paging.page}&keyword=${keyword}" class="button large">Modify</a></li>
+							<li><a href="main?a=modifyform&no=${vo.board_id}&page=${page}&keyword=${keyword}" class="button large">Modify</a></li>
 						</ul>
 						<ul class="stats">
 							<li><a href="#">General</a></li>
