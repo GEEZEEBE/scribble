@@ -29,7 +29,7 @@
 				</div>
 				<div class="meta">
 					<time class="published" datetime=${vo.reg_date}>${vo.reg_date}</time>
-					<a href="#" class="author"><span class="name">${vo.name}</span></a>
+					<a href="#" class="author"><span class="name">${vo.name}</span><img src="images/avatar.jpg" alt="" /></a>
 				</div>
 			</header>
 			<a href="/main.jsp?a=view" class="image featured"><img src="${vo.img_name}" alt="" /></a>
@@ -138,4 +138,13 @@
 
 
 	</body>
+
+<script>
+	function checkLogin() {
+		if ("${authUser == null }") {
+			alert("로그인을 해야 Scribble이 가능합니다.");
+			location.href = "main?a=list";
+		}
+	}
+</script>
 </html>
