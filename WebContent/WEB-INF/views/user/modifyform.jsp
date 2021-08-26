@@ -27,7 +27,7 @@
 						
 						<h2 class="blind" align="center">Modify</h2>
 			  			<h3 class="blind" align="center">회원정보수정</h3>
-						<br>
+						<br>  
 						<div align="right">
 							<a href="/scribble/user?a=delete&user_id=${SuserVo.user_id }">회원탈퇴</a>
 						</div>
@@ -37,18 +37,19 @@
 						<div class="form col-md-6">
 							<div class="form-row">
 							<div class="fixAlignment">
-                                    <input type="text" id="Name" name="Name" class="form-control" placeholder="NAME" aria-label="Name" value="${SuserVo.name }" />
-                            </div>
+									<input id="name" name="name" type="text"  value="${SuserVo.name }" /></div>
                             </div>
 							<br>
                             <div class="form-row">
                             <div class="fixAlignment">
-                                    <input id="password" name="password" type="password" maxlength="16" class="form-control" placeholder="PASSWORD" aria-label="Password" value="" />
+                                    <input id="password" name="password" type="password" maxlength="16" placeholder="PASSWORD" value="" />
                             </div>
                             </div>
                             <br>
-							<input align="center" type="submit" value="Completed">
+                            <div align="center">
+							<input type="submit" value="Completed">
 							<div class="bottom">
+							</div>
 							</div>
                         </div>
 	
