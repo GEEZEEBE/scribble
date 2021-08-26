@@ -39,11 +39,13 @@
 						<input align="center" type="submit" value="수정완료">
 						<br>
 						<br>
-						<br>
 						<div class="bottom">
 							<a href="/scribble/user?a=delete&user_id=${SuserVo.user_id }">회원탈퇴</a>
 						</div>
-
+	
+						<!-- /주소 접근 방지용 정보 -->
+						<input id="user_id" name="user_id" type="hidden" value="${SuserVo.user_id }" />
+						
 					</form>
 				</div><!-- /user -->
 			</div><!-- /content -->

@@ -44,43 +44,61 @@ public class SuserServlet extends HttpServlet {
 			
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/user/joinsuccess.jsp");
 			rd.forward(request, response);
+			
 		//Update users' info 	
 		} else if("modify".equals(actionName)){
-			String name = request.getParameter("name");
-			String password = request.getParameter("password");
-					
-			SuserVo vo = new SuserVo();
-			vo.setName(name);
-			vo.setPassword(password);
-					
-			HttpSession session = request.getSession();
-			SuserVo authUser = (SuserVo)session.getAttribute("authUser");
+			try {	// 주소 직접 접근 방지
+				HttpSession session = request.getSession();
+				SuserVo authUser = (SuserVo)session.getAttribute("authUser");
+				int authuser = authUser.getUser_id();
+	
+				int user_id = Integer.parseInt(request.getParameter("user_id"));
+				SuserDao dao = new SuserDaoImpl();
+				SuserVo vo = dao.get(user_id);
+				
+					if (authuser != vo.getUser_id()) {
+						System.out.println("Unauthorized Access to modify1");
+						response.sendRedirect("/scribble/main");
+					}else {
+						String name = request.getParameter("name");
+						String password = request.getParameter("password");
+						
+						vo.setName(name);
+						vo.setPassword(password);
+						
+						dao.update(vo);
 
-			int no = authUser.getUser_id();
-			vo.setUser_id(no);
-
-			SuserDao dao = new SuserDaoImpl();
+						response.sendRedirect("/scribble/main");	
+					}
+			}catch (Exception e) {
+					System.out.println(e);
+					System.out.println("Unauthorized Access to modify2");
+					HttpSession session = request.getSession();
+					session.removeAttribute("authUser");
+					session.invalidate();
+					WebUtil.redirect(request, response, "/scribble/user?a=loginform");
+			}
 			
-			dao.update(vo);
-					
-			authUser.setName(name);
-					
-			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/main/index.jsp");
-			rd.forward(request, response);
-					
 		//Update form
 		} else if("modifyform".equals(actionName)) {
-			HttpSession session = request.getSession();
-			SuserVo authUser = (SuserVo)session.getAttribute("authUser");
-			int user_id = authUser.getUser_id();
+			try {
+				HttpSession session = request.getSession();
+				SuserVo authUser = (SuserVo)session.getAttribute("authUser");
+				int user_id = authUser.getUser_id();
+				
+				SuserDao dao = new SuserDaoImpl();
+				SuserVo SuserVo = dao.getUser(user_id);
+				System.out.println(SuserVo.toString());
+				
+				request.setAttribute("SuserVo", SuserVo);
+				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/user/modifyform.jsp");
+				rd.forward(request, response);;
+			}catch (Exception e) {
+				System.out.println(e);
+				System.out.println("Unauthorized Access to modifyform");
+				WebUtil.redirect(request, response, "/scribble/user?a=loginform");
+			}	
 			
-			SuserDao dao = new SuserDaoImpl();
-			SuserVo SuserVo = dao.getUser(user_id);
-			System.out.println(SuserVo.toString());
-			
-			request.setAttribute("SuserVo", SuserVo);
-			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/user/modifyform.jsp");
-			rd.forward(request, response);
 		// Login	
 		} else if("loginform".equals(actionName)){
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/user/loginform.jsp");
@@ -104,24 +122,26 @@ public class SuserServlet extends HttpServlet {
 				response.sendRedirect("/scribble/main");
 				//return;
 			}
+			
 		// Logout	
 		} else if("logout".equals(actionName)){
 			HttpSession session = request.getSession();
 			session.removeAttribute("authUser");
 			session.invalidate();
 			response.sendRedirect("/scribble/main");
+			
 		// Delete User	
 		} else if("delete".equals(actionName)){
 			try {	// 주소 직접 접근 방지
 				HttpSession session = request.getSession();
 				SuserVo authUser = (SuserVo)session.getAttribute("authUser");
-				int user = authUser.getUser_id();
+				int authuser = authUser.getUser_id();
 	
 				int user_id = Integer.parseInt(request.getParameter("user_id"));
 				SuserDao dao = new SuserDaoImpl();
 				SuserVo vo = dao.getUser(user_id);
 				
-					if (user != vo.getUser_id()) {
+					if (authuser != vo.getUser_id()) {
 						System.out.println("Unauthorized Access to delete1");
 						response.sendRedirect("/scribble/user?a=loginform");
 					}else {
@@ -137,7 +157,9 @@ public class SuserServlet extends HttpServlet {
 					System.out.println(e);
 					System.out.println("Unauthorized Access to delete2");
 					WebUtil.redirect(request, response, "/scribble/user?a=loginform");
-				}
+			}
+			
+		//ID check	
 		} else if("checkid".equals(actionName)) {
 			String email = request.getParameter("email");
 		
