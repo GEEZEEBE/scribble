@@ -12,6 +12,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.javaex.dao.GuestbookDao;
+import com.javaex.dao.GuestbookDaoImpl;
+import com.javaex.vo.GuestbookVo;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 import com.scribble.dao.SCommentDao;
@@ -33,7 +36,7 @@ public class MainServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 			
 		String actionName = request.getParameter("a");
-		System.out.println("board:" + actionName);
+		System.out.println("main:" + actionName);
 
 		if ("list".equals(actionName)) {
 			String keyword = "";
@@ -146,7 +149,7 @@ public class MainServlet extends HttpServlet {
 	
 				if ( userNo != vo.getUser_id()) {
 					System.out.println("Unauthorized Access");
-					WebUtil.redirect(request, response, "/mysite/board?a=list");
+					WebUtil.redirect(request, response, "/scribble/main?a=list");
 				} else {
 					String title = request.getParameter("title");
 					String content = request.getParameter("content");					
@@ -174,11 +177,11 @@ public class MainServlet extends HttpServlet {
 			
 		} else if ("writeform".equals(actionName)) {
 			try {	// 주소 직접 접근 방지
-				HttpSession session = request.getSession();
-				SuserVo authUser = (SuserVo)session.getAttribute("authUser");
-				authUser.getUser_id();
-			
-				WebUtil.forward(request, response, "/WEB-INF/views/board/writeform.jsp");
+//				HttpSession session = request.getSession();
+//				SuserVo authUser = (SuserVo)session.getAttribute("authUser");
+//				authUser.getUser_id();				
+				
+				WebUtil.forward(request, response, "/writeform.jsp");
 				
 			} catch (Exception e) {
 				System.out.println(e);
@@ -186,13 +189,18 @@ public class MainServlet extends HttpServlet {
 				WebUtil.redirect(request, response, "/scribble/main?a=list");
 			}
 
-//		} else if ("write".equals(actionName)) {
-//			try {	// 주소 직접 접근 방지
+		} else if ("write".equals(actionName)) {
+			try {	// 주소 직접 접근 방지
 //				HttpSession session = request.getSession();
 //				SuserVo authUser = (SuserVo)session.getAttribute("authUser");
 //				int userNo = authUser.getUser_id();
-//				
-//				String img_name = null;
+			
+				
+				
+				int user_id = 1; // "1" ,로그인기능 병합시 삭제
+				String img_name = "beauty"; // "beauty" ,로그인기능 병합시 삭제				
+				String title = request.getParameter("title");
+				String content = request.getParameter("content");
 //			
 //				File file = new File(SAVEFOLDER);
 //				if (!file.exists())
@@ -212,23 +220,25 @@ public class MainServlet extends HttpServlet {
 //			
 //				
 //				//참고용"board_id,  title,content, hit, reg_date,img_name,isdeleted, user_id"
-//				SboardVo vo = new SboardVo();
-//		
-//				vo.setTitle(title);
-//				vo.setContent(content);
-//				vo.setImg_name(img_name);
-//								
-//				System.out.println(vo);
-//				
-//				SboardDao dao = new SboardDaoImpl();
-//				dao.insert(vo);
-//	
-//				WebUtil.redirect(request, response, "/mysite/board?a=list");
-//			} catch (Exception e) {
-//				System.out.println(e);
-//				System.out.println("Unauthorized Access");
-//				WebUtil.redirect(request, response, "/mysite/board?a=list");
-//			}
+				SboardVo vo = new SboardVo();
+
+				
+				vo.setUser_id(user_id); // 로그인 기능 병합시 변경			
+				vo.setImg_name(img_name); // 로그인 기능 병합시 변경				
+				vo.setTitle(title);
+				vo.setContent(content);
+												
+				System.out.println(vo);
+
+				SboardDao dao = new SboardDaoImpl();
+				dao.insert(vo);
+	
+				WebUtil.redirect(request, response, "/scribble/main?a=list");
+			} catch (Exception e) {
+				System.out.println(e);
+				System.out.println("Unauthorized Access");
+				WebUtil.redirect(request, response, "/scribble/main?a=list");
+			}
 
 		} else if ("delete".equals(actionName)) {
 			try {	// 주소 직접 접근 방지
@@ -250,7 +260,7 @@ public class MainServlet extends HttpServlet {
 					dao.delete(board_id);
 					
 					String encKeyword = URLEncoder.encode(keyword, "utf-8"); //웹에서 인식하는 것으로 변환?
-					WebUtil.redirect(request, response, "/mysite/board?a=list&no=&page=" + page + "&keyword=" + encKeyword);
+					WebUtil.redirect(request, response, "/scribble/main?a=list&no=&page=" + page + "&keyword=" + encKeyword);
 				}
 			} catch (Exception e) {
 				System.out.println(e);
@@ -258,8 +268,8 @@ public class MainServlet extends HttpServlet {
 				WebUtil.redirect(request, response, "/scribble/main?a=list");
 			}
 			
-		} else if ("download".equals(actionName)) {
-			WebUtil.forward(request, response, "/WEB-INF/views/board/download.jsp");
+//		} else if ("download".equals(actionName)) {
+//			WebUtil.forward(request, response, "/WEB-INF/views/board/download.jsp");
 			
 		} else {
 			WebUtil.redirect(request, response, "/scribble/main?a=list");

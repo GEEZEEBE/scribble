@@ -202,8 +202,10 @@ public class SboardDaoImpl implements SboardDao {
 			pstmt.setString(1, vo.getTitle());
 			pstmt.setString(2, vo.getContent());						
 			pstmt.setString(3, vo.getImg_name());
-			//user_id
-
+			pstmt.setInt(4, vo.getUser_id());
+			
+			
+			System.out.println(pstmt);
 			insertedCount = pstmt.executeUpdate();
 
 			System.out.println(insertedCount + "건 등록");

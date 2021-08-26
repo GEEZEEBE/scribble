@@ -140,13 +140,13 @@
 					<c:choose>
 					<c:when test="${authUser == null }">
 						<!-- 로그인 전 -->
-						<li><a href="/scribble/main">Scribble</a></li>
+						<li><a href="/scribble/main?a=writeform">Scribble</a></li>
 						<li><a href="/scribble/user?a=joinform">SignUp</a></li>
 						<li><a href="/scribble/user?a=loginform">Login</a></li>
 					</c:when>
 					<c:otherwise>
 						<!-- 로그인 후 -->
-						<li><a href="/scribble/main">Scribble</a></li>
+						<li><a href="/scribble/main?a=writeform">Scribble</a></li>
 						<li><a href="/scribble/user?a=modifyform">Modify My Info</a></li>
 						<li><a href="/scribble/user?a=logout">Logout</a></li>
 					</c:otherwise>
