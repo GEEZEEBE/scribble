@@ -12,9 +12,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.javaex.dao.GuestbookDao;
-import com.javaex.dao.GuestbookDaoImpl;
-import com.javaex.vo.GuestbookVo;
+//import com.javaex.dao.GuestbookDao;
+//import com.javaex.dao.GuestbookDaoImpl;
+//import com.javaex.vo.GuestbookVo;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 import com.scribble.dao.SCommentDao;
@@ -90,7 +90,7 @@ public class MainServlet extends HttpServlet {
 			String keyword = request.getParameter("keyword"); 
 			//keyword 없으면 null, 있으면 해당 value 들고 가자...
 			
-			int board_id = Integer.parseInt(request.getParameter("board_id"));
+			int board_id = Integer.parseInt(request.getParameter("no"));
 			
 			//board_id로 DB를 vo로 list에 담아서 가져가자 
 			
