@@ -19,10 +19,13 @@
 					<form id="login-form" name="loginform" method="post" action="/scribble/user">
 						<input type="hidden" name="a" value="login" /> 
 						
-						<label class="block-label" for="email">Email 이메일</label> 
+						<h2 class="blind" align="center">Login</h2>
+			  			<h3 class="blind" align="center">로그인</h3>
+						
+						<label class="block-label" for="email">EMAIL</label> 
 						<input id="email" name="email" type="text" value=""> 
 						<br>
-						<label class="block-label">Password 비밀번호</label> 
+						<label class="block-label">PASSWORD</label> 
 						<input name="password" type="password" value="">
 						
 								<br>
@@ -31,7 +34,7 @@
 								</c:if>
 						<br>
 						<h2 align="center">
-							<input type="submit" value="로그인">
+							<input type="submit" value="Login">
 						</h2>
 					</form>
 					
@@ -39,11 +42,6 @@
 			</div><!-- /content -->
 		</div><!-- /wrapper -->`
 	</div> <!-- /container -->
-	<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/browser.min.js"></script>
-			<script src="assets/js/breakpoints.min.js"></script>
-			<script src="assets/js/util.js"></script>
-			<script src="assets/js/main.js"></script>
+<c:import url="/WEB-INF/views/includes/footer.jsp"></c:import><!-- /footer -->
 </body>
 </html>
