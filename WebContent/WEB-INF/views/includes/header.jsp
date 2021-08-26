@@ -1,11 +1,5 @@
-<<<<<<< HEAD
-=======
-
-<<<<<<< HEAD
->>>>>>> 2788e9efd1d40b0ef937ab838028f92d7582c923
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-=======
 
 		<!-- Wrapper -->
 			<div id="wrapper">
@@ -72,7 +66,6 @@
 
 					</section>
 
->>>>>>> 5ab3834ec001986a47fc8af9acc44124e669e25a
 
 		<!-- Wrapper -->
 			<div id="wrapper">
