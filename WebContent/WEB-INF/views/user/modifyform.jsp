@@ -22,38 +22,44 @@
 		<div id="wrapper">
 			<div id="content">
 				<div id="user">
-					
 					<form id="join-form" name="joinForm" method="post" action="/scribble/user">
 						<input type="hidden" name="a" value="modify">
 						
-						<label class="block-label" for="name">Name 이름</label>
-						<input id="name" name="name" type="text" value="${suserVo.name }" />
+						<h2 class="blind" align="center">Modify</h2>
+			  			<h3 class="blind" align="center">회원정보수정</h3>
 						<br>
-						<label class="block-label" for="email">Email 이메일</label>
-						<strong>${suserVo.email }</strong>
-						<br>
-						<br>
-						<label class="block-label">Password 비밀번호</label>
-						<input name="password" type="password" value="" />
-						<br>
-						<input align="center" type="submit" value="수정완료">
-						<br>
-						<br>
-						<br>
-						<div class="bottom">
-							<a href="/scribble/user?a=delete&user_id=${suserVo.user_id }">회원탈퇴</a>
+						<div align="right">
+							<a href="/scribble/user?a=delete&user_id=${SuserVo.user_id }">회원탈퇴</a>
 						</div>
-
+						<br>
+						<h3 class="blind" align="left"> ${SuserVo.email } 's </h3>
+						<br>
+						<div class="form col-md-6">
+							<div class="form-row">
+							<div class="fixAlignment">
+                                    <input type="text" id="Name" name="Name" class="form-control" placeholder="NAME" aria-label="Name" value="${SuserVo.name }" />
+                            </div>
+                            </div>
+							<br>
+                            <div class="form-row">
+                            <div class="fixAlignment">
+                                    <input id="password" name="password" type="password" maxlength="16" class="form-control" placeholder="PASSWORD" aria-label="Password" value="" />
+                            </div>
+                            </div>
+                            <br>
+							<input align="center" type="submit" value="Completed">
+							<div class="bottom">
+							</div>
+                        </div>
+	
+						<!-- /주소 접근 방지용 정보 -->
+						<input id="user_id" name="user_id" type="hidden" value="${SuserVo.user_id }" />
+						
 					</form>
 				</div><!-- /user -->
 			</div><!-- /content -->
 		</div><!-- /wrapper -->
 	</div> <!-- /container -->
-	<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/browser.min.js"></script>
-			<script src="assets/js/breakpoints.min.js"></script>
-			<script src="assets/js/util.js"></script>
-			<script src="assets/js/main.js"></script>
+<c:import url="/WEB-INF/views/includes/footer.jsp"></c:import><!-- /footer -->	
 </body>
 </html>

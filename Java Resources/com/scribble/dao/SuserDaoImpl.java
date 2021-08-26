@@ -21,8 +21,8 @@ public class SuserDaoImpl implements SuserDao{
 	      Class.forName("oracle.jdbc.driver.OracleDriver");
 //	      String dburl = "jdbc:oracle:thin:@10.211.55.4:1521:xe";
 	      String dburl = "jdbc:oracle:thin:@localhost:1521:xe";
-//	      conn = DriverManager.getConnection(dburl, "webdb", "1234");
-	      conn = DriverManager.getConnection(dburl, "c##webdb", "1234");
+	      conn = DriverManager.getConnection(dburl, "webdb", "1234");
+
 	    } catch (ClassNotFoundException e) {
 	      System.err.println("JDBC 드라이버 로드 실패!");
 	    }
@@ -80,8 +80,8 @@ public class SuserDaoImpl implements SuserDao{
 			String query = "insert into susers values (seq_susers_no.nextval, ?, ?, ?, NULL)";
 			pstmt = conn.prepareStatement(query);
 
-			pstmt.setString(1, vo.getEmail());
-			pstmt.setString(2, vo.getName());
+			pstmt.setString(1, vo.getName());
+			pstmt.setString(2, vo.getEmail());
 			pstmt.setString(3, vo.getPassword());
 
 			count = pstmt.executeUpdate();
@@ -226,7 +226,7 @@ public class SuserDaoImpl implements SuserDao{
 		}
 		return vo;
 	}	
-	//Modify users' info
+	//Get User_id
 	public SuserVo getUser(int user_id) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -254,6 +254,45 @@ public class SuserDaoImpl implements SuserDao{
 				vo.setEmail(email);
 				vo.setName(name);
 			}
+		} catch (SQLException e) {
+			System.out.println("error:" + e);
+		} finally {
+			try {
+				if (pstmt != null) {
+					pstmt.close();
+				}
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				System.out.println("error:" + e);
+			}
+		}
+		return vo;
+	}
+	//Get users' info
+	public SuserVo get(int no) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		SuserVo vo = new SuserVo();
+
+			try {
+				conn = getConnection();
+				String query = "select * from susers where user_id = ? and isdeleted is NULL "; 
+				pstmt = conn.prepareStatement(query);
+				
+				pstmt.setInt(1, no);
+
+				rs = pstmt.executeQuery();
+				
+				if (rs.next()) {
+					vo.setUser_id(rs.getInt("user_id"));
+					vo.setEmail(rs.getString("Email"));
+					vo.setName(rs.getString("name"));
+					vo.setPassword(rs.getString("password"));
+					vo.setIsdeleted(rs.getString("isdeleted"));
+				}
 		} catch (SQLException e) {
 			System.out.println("error:" + e);
 		} finally {

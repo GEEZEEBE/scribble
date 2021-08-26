@@ -15,22 +15,18 @@
 		<div id="wrapper">
 			<div id="content">
 				<div id="user">
-					<p class="jr-success">
-						<h3 align="center">Welcome to Scribble!</h3>
-						<h3 align="center">회원가입을 축하합니다.</h3>
+					<h3 class="jr-success" align="center">
+						Welcome to Scribble!
+						<br>
+						회원가입을 축하합니다.
 						<br>
 						<br>
-						<h3 align="center"><a href="/scribble/user?a=login">로그인하기</a></h3>
-					</p>
+						<table><tr><td><a href="/scribble/user?a=loginform">Login Now</a></tr></td></table>
+					</h3>
 				</div><!-- /user -->
 			</div><!-- /content -->
 		</div><!-- /wrapper -->
 	</div> <!-- /container -->
-	<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/browser.min.js"></script>
-			<script src="assets/js/breakpoints.min.js"></script>
-			<script src="assets/js/util.js"></script>
-			<script src="assets/js/main.js"></script>
+<c:import url="/WEB-INF/views/includes/footer.jsp"></c:import><!-- /footer -->
 </body>
 </html>
