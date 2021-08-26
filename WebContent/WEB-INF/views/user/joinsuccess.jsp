@@ -21,7 +21,9 @@
 						회원가입을 축하합니다.
 						<br>
 						<br>
-						<table><tr><td><a href="/scribble/user?a=loginform">Login Now</a></tr></td></table>
+						<br>
+						<br>
+						<button type="button" onclick="location.href='/scribble/user?a=loginform' ">Login Now</button>
 					</h3>
 				</div><!-- /user -->
 			</div><!-- /content -->
