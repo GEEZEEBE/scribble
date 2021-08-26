@@ -40,6 +40,7 @@
 					<footer>						
 						<ul class="actions">
 							<li><a href="main?a=modifyform&no=${vo.board_id}&page=${page}&keyword=${keyword}" class="button large">Modify</a></li>
+							<li><a href="main?a=delete&no=${vo.board_id}&page=${page}&keyword=${keyword}" class="button large">Delete</a></li>
 						</ul>
 						<ul class="stats">
 							<li><a href="#">General</a></li>
