@@ -8,7 +8,7 @@ public class PageVo {
 	
 	public PageVo() {
 		this.page = 1;
-		this.countPerPage = 10;
+		this.countPerPage = 3;
 	}
 	
 	//클라이언트가 전달한 페이지번호를 데이터베이스의 ROWNUM에 맞는 숫자로 변환.

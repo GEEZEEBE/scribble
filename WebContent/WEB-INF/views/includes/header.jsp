@@ -1,6 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 		<!-- Wrapper -->
 			<div id="wrapper">
@@ -68,6 +67,70 @@
 					</section>
 
 
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<h1><a href="/scribble/index.jsp">SCRIBBLE PAPERS</a></h1>
+						<nav class="links">
+							<ul>
+								<li><a href="#">SCRIBBLE</a></li>
+								<li><a href="#">SIGNUP</a></li>
+								<li><a href="#">LOGIN</a></li>
+							</ul>
+						</nav>
+						<nav class="main">
+							<ul>
+								<li class="search">
+									<a class="fa-search" href="#search">Search</a>
+									<form id="search" method="get" action="#">
+										<input type="text" name="query" placeholder="Search" />
+									</form>
+								</li>
+								<li class="menu">
+									<a class="fa-bars" href="#menu">Menu</a>
+								</li>
+							</ul>
+						</nav>
+					</header>
+
+				<!-- Menu -->
+					<section id="menu">
+
+						<!-- Search -->
+							<section>
+								<form class="search" method="get" action="#">
+									<input type="text" name="query" placeholder="Search" />
+								</form>
+							</section>
+
+						<!-- Links -->
+							<section>
+								<ul class="links">
+									<li>
+										<a href="#">
+											<h3>Scribble</h3>
+											<p>아무거나 주절여봐요</p>
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<h3>Signup</h3>
+											<p>회원가입</p>
+										</a>
+									</li>
+								</ul>
+							</section>
+
+						<!-- Actions -->
+							<section>
+								<ul class="actions stacked">
+									<li><a href="#" class="button large fit">Log In</a></li>
+								</ul>
+							</section>
+
+					</section>
 
 		<!-- Header -->
 		<header id="header">
@@ -79,7 +142,7 @@
 						<!-- 로그인 전 -->
 						<li><a href="/scribble/main?a=writeform">Scribble</a></li>
 						<li><a href="/scribble/user?a=joinform">SignUp</a></li>
-						<li><a href="/scribble/user?a=login">Login</a></li>
+						<li><a href="/scribble/user?a=loginform">Login</a></li>
 					</c:when>
 					<c:otherwise>
 						<!-- 로그인 후 -->
@@ -147,7 +210,7 @@
 					<c:choose>
 						<c:when test="${authUser == null }">
 							<!-- 로그인 전 -->
-						<li><a href="/scribble/user?a=login" class="button large fit">LogIn</a></li>
+						<li><a href="/scribble/user?a=loginform" class="button large fit">LogIn</a></li>
 						</c:when>
 						<c:otherwise>
 							<!-- 로그인 후 -->	

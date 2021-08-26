@@ -22,11 +22,8 @@ public interface SboardDao {
 
 	public int getTotalCount(String keyword);
 	public void upHitCount(int no);
+	public List<SboardSuserVo> getHitTop4();
+	public List<SboardSuserVo> getMyList(int no);
 
-	
-	
-//	public int reply(BoardVo vo);
-//	public int upReplies(int ref, int pos);
-//	public void downLoad(HttpServletRequest req, HttpServletResponse res, JspWriter out, PageContext pageContext);
 	
 }	

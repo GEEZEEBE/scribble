@@ -10,7 +10,7 @@ public class PageCreator {
 	private boolean next; 			// 다음 버튼 활성화 여부
 	
 	// 한 화면에 보여질 페이지 수
-	private final int displayPageNum = 10;
+	private final int displayPageNum = 3;
 		
 	public PageCreator(PageVo paging) {
 		super();

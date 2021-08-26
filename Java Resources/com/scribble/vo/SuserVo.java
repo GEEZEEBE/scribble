@@ -12,13 +12,18 @@ public class SuserVo {
 		super();
 	}
 
+	public SuserVo(String isdeleted) {
+		super();
+		this.isdeleted = isdeleted;
+	}
+
 	public SuserVo(String email, String name, String password) {
 		super();
 		this.email = email;
 		this.name = name;
 		this.password = password;
 	}
-
+	
 	public SuserVo(int user_id, String email, String name, String password, String isdeleted) {
 		super();
 		this.user_id = user_id;

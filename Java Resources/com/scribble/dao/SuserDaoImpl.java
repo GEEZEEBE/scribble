@@ -5,6 +5,10 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.json.JSONObject;
 
 import com.scribble.vo.SuserVo;
 
@@ -21,8 +25,47 @@ public class SuserDaoImpl implements SuserDao{
 	      System.err.println("JDBC 드라이버 로드 실패!");
 	    }
 	    return conn;
-	  }
-	
+	  }	
+	//List
+	public List<SuserVo> getList() {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<SuserVo> list = new ArrayList<SuserVo>();
+
+		try {
+			conn = getConnection();
+			String query = " select * from susers order by user_id desc ";
+			pstmt = conn.prepareStatement(query);
+
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				int user_id = rs.getInt("user_id");
+				String email = rs.getString("email");
+				String name = rs.getString("name");
+				String password = rs.getString("password");
+				String isdeleted = rs.getString("isdeleted");
+
+				SuserVo vo = new SuserVo(user_id, email, name, password, isdeleted);
+				list.add(vo);
+			}
+		} catch (SQLException e) {
+			System.out.println("error:" + e);
+		} finally {
+			try {
+				if (pstmt != null) {
+					pstmt.close();
+				}
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				System.out.println("error:" + e);
+			}
+		}
+		return list;
+	}	
 	//Insert users' info
 	public int insert(SuserVo vo) {
 		Connection conn = null;
@@ -58,7 +101,6 @@ public class SuserDaoImpl implements SuserDao{
 		}
 		return count;
 	}
-
 	//Update users' info
 	public int update(SuserVo vo) {
 		Connection conn = null;
@@ -107,7 +149,6 @@ public class SuserDaoImpl implements SuserDao{
 		}
 		return count;
 	}
-
 	//Delete users'info
 	public int delete(int user_id) {
 		Connection conn = null;
@@ -117,8 +158,7 @@ public class SuserDaoImpl implements SuserDao{
 		try {
 			conn = getConnection();
 
-			String query = "update susers set isdeleted = 'true' where user_id ";
-
+			String query = "update susers set isdeleted = 'true' where user_id = ? ";
 			pstmt = conn.prepareStatement(query);
 
 			pstmt.setInt(1, user_id);
@@ -141,8 +181,7 @@ public class SuserDaoImpl implements SuserDao{
 			}
 		}
 		return count;
-	}
-	
+	}	
 	//Login
 	public SuserVo getUser(String email, String password) {
 		Connection conn = null;
@@ -153,7 +192,7 @@ public class SuserDaoImpl implements SuserDao{
 		try {
 			conn = getConnection();
 
-			String query = "select user_id, name from susers where email = ? and password = ?";
+			String query = "select user_id, name from susers where email = ? and password = ? and isdeleted is NULL ";
 			pstmt = conn.prepareStatement(query);
 
 			pstmt.setString(1, email);
@@ -184,8 +223,7 @@ public class SuserDaoImpl implements SuserDao{
 			}
 		}
 		return vo;
-	}
-	
+	}	
 	//Modify users' info
 	public SuserVo getUser(int user_id) {
 		Connection conn = null;
@@ -230,4 +268,41 @@ public class SuserDaoImpl implements SuserDao{
 		}
 		return vo;
 	}
+	//Check ID	
+	public JSONObject checkId(String email) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		JSONObject data = null;
+		
+		try{
+			conn = getConnection();
+			String query = "select count(*) from susers where email =? ";
+			
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, email);
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				int cnt = rs.getInt(1);
+				data = new JSONObject();
+				data.put("count", cnt);
+			}
+		} catch (SQLException e) {
+			System.out.println("error:" + e);
+		} finally {
+			try {
+				if (pstmt != null) {
+					pstmt.close();
+				}
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				System.out.println("error:" + e);
+			}
+		}
+		return data;
+	}
+
 }

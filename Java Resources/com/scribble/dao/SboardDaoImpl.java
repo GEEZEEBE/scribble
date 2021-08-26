@@ -24,7 +24,7 @@ import com.scribble.vo.SboardVo;
 
 public class SboardDaoImpl implements SboardDao {
 	
-	//private static final String  SAVEFOLDER = "C:/mini_project/sribble/WebContent/WEB-INF/filestorage";
+	private static final String  SAVEFOLDER = "C:/mini_Project/scribble/WebContent/WEB-INF/filestorage/";
 
 	// Get DB connection.
 	private Connection getConnection() throws SQLException {
@@ -32,7 +32,8 @@ public class SboardDaoImpl implements SboardDao {
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			String dburl = "jdbc:oracle:thin:@localhost:1521:xe";
-			conn = DriverManager.getConnection(dburl, "c##webdb", "1234");
+//			conn = DriverManager.getConnection(dburl, "c##webdb", "1234");
+			conn = DriverManager.getConnection(dburl, "webdb", "1234");
 		} catch (ClassNotFoundException e) {
 			System.err.println("JDBC 드라이버 로드 실패!");
 		}
@@ -61,7 +62,7 @@ public class SboardDaoImpl implements SboardDao {
 					    	   "			   JOIN susers u					" + 
 					    	   "			   ON b.user_id = u.user_id 		" + 
 					    	   "			   WHERE b.isdeleted is NULL		" + 
-//					    	   "			   ORDER BY b.ref DESC, b.pos		" + 
+					    	   "			   ORDER BY reg_date DESC			" + 
 					    	   "	 ) A										" + 
 					    	   "	   WHERE ROWNUM <= ? + ? 					" + 
 					    	   ") 												" + 
@@ -82,7 +83,7 @@ public class SboardDaoImpl implements SboardDao {
 					    	   "			   WHERE (b.title || b.content || b.reg_date || u.name)	" + 
 					    	   "			   LIKE ?												" + 
 					    	   "			   AND isdeleted is NULL								" + 
-//					    	   "			   ORDER BY ref DESC, pos								" + 
+					    	   "			   ORDER BY reg_date DESC								" + 
 					    	   "		) A															" + 
 					    	   "		WHERE ROWNUM <= ? + ? 										" + 
 					    	   ") 																	" + 
@@ -106,7 +107,7 @@ public class SboardDaoImpl implements SboardDao {
 				vo.setContent(rs.getString("content"));
 				vo.setHit(rs.getInt("hit"));
 				vo.setReg_date(rs.getString("reg_date"));
-				vo.setImg_name(rs.getString("img_name"));
+				vo.setImg_name("filestorage/" + rs.getString("img_name"));
 				vo.setIsdeleted(rs.getString("isdeleted"));
 				vo.setUser_id(rs.getInt("user_id"));				
 				vo.setName(rs.getString("name"));
@@ -138,11 +139,11 @@ public class SboardDaoImpl implements SboardDao {
 
 		try {
 			conn = getConnection();
-			String query = "SELECT *				" + 
-				    	   "FROM sboard 	b			" + 
-				    	   "JOIN susers u			" + 
-				    	   "ON b.user_id = u.user_id		" + 
-				    	   "WHERE b.board_id = ?			"; 
+			String query = "SELECT *					" + 
+				    	   "FROM sboard b				" + 
+				    	   "JOIN susers u				" + 
+				    	   "ON b.user_id = u.user_id	" + 
+				    	   "WHERE b.board_id = ?		"; 
 			pstmt = conn.prepareStatement(query);
 			
 			pstmt.setInt(1, no);
@@ -156,7 +157,7 @@ public class SboardDaoImpl implements SboardDao {
 				vo.setContent(rs.getString("content"));
 				vo.setHit(rs.getInt("hit"));
 				vo.setReg_date(rs.getString("reg_date"));
-				vo.setImg_name(rs.getString("img_name"));
+				vo.setImg_name("filestorage/" + rs.getString("img_name"));
 				vo.setIsdeleted(rs.getString("isdeleted"));
 				vo.setUser_id(rs.getInt("user_id"));				
 				vo.setName(rs.getString("name"));			
@@ -189,7 +190,7 @@ public class SboardDaoImpl implements SboardDao {
 			
 			String query = "INSERT										" +
 						   "INTO sboard									" +
-						   "VALUES ( seq_sboard_no.nextval, ?, ?, 0, 	" + 
+						   "VALUES ( seq_sboard_no.nextval, ?, ?, 0, 0,	" + 
 						   "		 SYSDATE, ?, NULL, ? ) 	";
 	
 	  
@@ -316,7 +317,7 @@ public class SboardDaoImpl implements SboardDao {
 			conn = getConnection();
 			
 			if (keyword.equals("null") || keyword.equals("")) {
-				String query = "SELECT COUNT(board_id)			" +
+				String query = "SELECT COUNT(board_id)		" +
 							   "FROM sboard					" +
 							   "WHERE isdeleted is NULL		";
 								
@@ -384,6 +385,115 @@ public class SboardDaoImpl implements SboardDao {
 			}
 		}
 	}	
+
+	@Override
+	public List<SboardSuserVo> getHitTop4() {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<SboardSuserVo> list = new ArrayList<>();
+
+		try {
+			conn = getConnection();
+			
+			String query = "SELECT ROWNUM, A.*						" + 
+				    	   "FROM ( SELECT *							" + 
+				    	   "	   FROM sboard b					" + 
+				    	   "	   JOIN susers u					" + 
+				    	   "	   ON b.user_id = u.user_id 		" + 
+				    	   "	   WHERE b.isdeleted is NULL		" + 
+				    	   "	   ORDER BY reg_date DESC			" + 
+				    	   ") A										" + 
+				    	   "WHERE ROWNUM < 5						";
+			pstmt = conn.prepareStatement(query);
+			
+			rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				
+				SboardSuserVo vo = new SboardSuserVo();
+				
+				vo.setBoard_id(rs.getInt("board_id"));
+				vo.setTitle(rs.getString("title"));
+				vo.setContent(rs.getString("content"));
+				vo.setHit(rs.getInt("hit"));
+				vo.setReg_date(rs.getString("reg_date"));
+				vo.setImg_name("filestorage/" + rs.getString("img_name"));
+				vo.setIsdeleted(rs.getString("isdeleted"));
+				vo.setUser_id(rs.getInt("user_id"));				
+				vo.setName(rs.getString("name"));
+
+				list.add(vo);
+			}
+
+		} catch (SQLException e) {
+			System.out.println("error:" + e);
+		} finally {
+			try {
+				if (pstmt != null) pstmt.close();
+				if (conn != null)  conn.close();
+			} catch (SQLException e) {
+				System.out.println("error:" + e);
+			}
+		}
+
+		return list;
+	}
+	
+	public List<SboardSuserVo> getMyList(int no) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<SboardSuserVo> list = new ArrayList<>();
+
+		try {
+			conn = getConnection();
+			
+			String query = "SELECT ROWNUM, A.*						" + 
+				    	   "FROM ( SELECT *							" + 
+				    	   "	   FROM sboard b					" + 
+				    	   "	   JOIN susers u					" + 
+				    	   "	   ON b.user_id = u.user_id 		" + 
+				    	   "	   WHERE b.isdeleted is NULL		" + 
+				    	   "	   AND b.user_id is ?				" + 
+				    	   "	   ORDER BY reg_date DESC			" + 
+				    	   ") A										" + 
+				    	   "WHERE ROWNUM < 6						";
+			pstmt = conn.prepareStatement(query);
+			
+			pstmt.setInt(1, no);
+			rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				
+				SboardSuserVo vo = new SboardSuserVo();
+				
+				vo.setBoard_id(rs.getInt("board_id"));
+				vo.setTitle(rs.getString("title"));
+				vo.setContent(rs.getString("content"));
+				vo.setHit(rs.getInt("hit"));
+				vo.setReg_date(rs.getString("reg_date"));
+				vo.setImg_name("filestorage/" + rs.getString("img_name"));
+				vo.setIsdeleted(rs.getString("isdeleted"));
+				vo.setUser_id(rs.getInt("user_id"));				
+				vo.setName(rs.getString("name"));
+
+				list.add(vo);
+			}
+
+		} catch (SQLException e) {
+			System.out.println("error:" + e);
+		} finally {
+			try {
+				if (pstmt != null) pstmt.close();
+				if (conn != null)  conn.close();
+			} catch (SQLException e) {
+				System.out.println("error:" + e);
+			}
+		}
+
+		return list;
+	}
 	
 	//페이징 및 블럭 테스트를 위한 게시물 저장 메소드 
 	public void post100(){
@@ -394,7 +504,7 @@ public class SboardDaoImpl implements SboardDao {
 			conn = getConnection();
 			
 			//참고용"board_id,  title,content, hit, reg_date,img_name,isdeleted, user_id"
-			sql = "INSERT INTO sboard VALUES (seq_board_no.nextval, '제목', '내용', 0, SYSDATE, NULL, 0";
+			sql = "INSERT INTO sboard VALUES (seq_board_no.nextval, '제목', '내용', 0, SYSDATE, 'pic01.jpg', NULL, 1)";
 			//fk user_id 처리 : 0...?...
 			
 			pstmt = conn.prepareStatement(sql);
@@ -412,7 +522,7 @@ public class SboardDaoImpl implements SboardDao {
 			}
 		}
 	}
-	
+		
 	//main
 	public static void main(String[] args) {
 		new SboardDaoImpl().post100();
