@@ -1,9 +1,5 @@
 package com.scribble.dao;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -12,20 +8,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.jsp.JspWriter;
-import javax.servlet.jsp.PageContext;
-
 import com.scribble.etc.PageVo;
-import com.scribble.util.FileUtil;
 import com.scribble.vo.SboardSuserVo;
 import com.scribble.vo.SboardVo;
 
 public class SboardDaoImpl implements SboardDao {
 	
-	private static final String  SAVEFOLDER = "C:/mini_Project/scribble/WebContent/WEB-INF/filestorage/";
-
 	// Get DB connection.
 	private Connection getConnection() throws SQLException {
 		Connection conn = null;
@@ -190,13 +178,9 @@ public class SboardDaoImpl implements SboardDao {
 			
 			String query = "INSERT										" +
 						   "INTO sboard									" +
-						   "VALUES ( seq_sboard_no.nextval, ?, ?, 0, 0,	" + 
+						   "VALUES ( seq_sboard_no.nextval, ?, ?, 0,	" + 
 						   "		 SYSDATE, ?, NULL, ? ) 	";
 	
-	  
-		
-		//참고용"board_id,  title,content, hit, reg_date,img_name,isdeleted, user_id"
-				
 			pstmt = conn.prepareStatement(query);
 
 			pstmt.setString(1, vo.getTitle());
@@ -204,8 +188,6 @@ public class SboardDaoImpl implements SboardDao {
 			pstmt.setString(3, vo.getImg_name());
 			pstmt.setInt(4, vo.getUser_id());
 			
-			
-			System.out.println(pstmt);
 			insertedCount = pstmt.executeUpdate();
 
 			System.out.println(insertedCount + "건 등록");
@@ -455,7 +437,7 @@ public class SboardDaoImpl implements SboardDao {
 				    	   "	   JOIN susers u					" + 
 				    	   "	   ON b.user_id = u.user_id 		" + 
 				    	   "	   WHERE b.isdeleted is NULL		" + 
-				    	   "	   AND b.user_id is ?				" + 
+				    	   "	   AND b.user_id = ?				" + 
 				    	   "	   ORDER BY reg_date DESC			" + 
 				    	   ") A										" + 
 				    	   "WHERE ROWNUM < 6						";
