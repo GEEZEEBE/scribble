@@ -27,24 +27,21 @@
 			  			
 						<div class="form col-md-6">
 							<div class="form-row">
-							<div class="fixAlignment">
-								<label class="block-label" for="email">EMAIL</label>
-								<input type="text" id="email" name="email" class="form-control" aria-label="email" value=""/>
-                        	</div>
+								<div class="fixAlignment">
+									<input type="text" id="email" name="email" class="form-control" aria-label="email" placeholder="EMAIL" value=""/>
+                        		</div>
                         	<br>
                         	<input type="button" id="CheckId" value="Email Check">
 							<p id="notice"></p>
 							<div class="form-row">
-							<div class="fixAlignment">
-									<label class="block-label" for="name">NAME</label>
-                                    <input type="text" id="Name" name="Name" class="form-control" aria-label="Last Name" value="" />
-                                </div>
+								<div class="fixAlignment">
+                             		<input type="text" id="name" name="name" class="form-control" aria-label="name" placeholder="NAME" value="" />
+                           		</div>
                             </div>
                             <br>
                             <div class="form-row">
                                 <div class="fixAlignment">
-                                    <label class="block-label">PASSWORD</label>
-                                    <input id="password" name="password" type="password" maxlength="16" class="form-control" aria-label="Password" value="" />
+                                    <input id="password" name="password" type="password" maxlength="16" class="form-control" aria-label="password" placeholder="PASSWORD" value="" />
                                 </div>
                             </div>
 							</div>
@@ -52,9 +49,9 @@
                         <br>
 						<fieldset class="blind" align="center">
 							<legend>[ 약관동의 ]</legend>
-							<br>
+							<br>	
 							<input id="agree-prov" type="checkbox" name="agreeProv" value="y" />
-							<label>서비스 약관에 동의합니다.</label>
+							<label for="agree-prov">서비스 약관에 동의합니다.</label>
 						</fieldset>	
 							<h3 class="blind" align="center">
 							<input type="submit" value="가입하기" id="submitBtn" disabled="true" />
@@ -67,14 +64,13 @@
 <c:import url="/WEB-INF/views/includes/footer.jsp"></c:import><!-- /footer -->
 </body>
 <script>
-
 	var isValidId = false;
 	$(document).ready(function (){   
 	   $("#CheckId").on("click", function(event) {
 	   var params = $("form").serialize(); 		// 폼태그의 모든 파라미터 저장
 	   
 	   		$.ajax({
-	   			url:"/scribble/user?a=checkid", 	// request 할 servlet 주소
+	   			url:"/mysite/user?a=checkid", 	// request 할 servlet 주소
 	   			dataType:"json",
 	   			type:"post",
 	   			data:params, 					// 전달할 파라미터 
@@ -114,6 +110,7 @@
 		}
 		return rv;
 	});
+
 
 </script>
 </html>

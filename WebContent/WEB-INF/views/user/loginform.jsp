@@ -21,12 +21,10 @@
 						
 						<h2 class="blind" align="center">Login</h2>
 			  			<h3 class="blind" align="center">로그인</h3>
-						
-						<label class="block-label" for="email">EMAIL</label> 
-						<input id="email" name="email" type="text" value=""> 
+						 
+						<input id="email" name="email" placeholder="EMAIL" type="text" value=""> 
 						<br>
-						<label class="block-label">PASSWORD</label> 
-						<input name="password" type="password" value="">
+						<input name="password" type="password" placeholder="PASSWORD" value="">
 						
 								<br>
 								<c:if test="${param.result eq 'fail' }">

@@ -21,7 +21,7 @@
 						회원가입을 축하합니다.
 						<br>
 						<br>
-						<a href="/scribble/user?a=login">Login Now</a>
+						<table><tr><td><a href="/scribble/user?a=loginform">Login Now</a></tr></td></table>
 					</h3>
 				</div><!-- /user -->
 			</div><!-- /content -->

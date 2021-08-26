@@ -78,8 +78,8 @@ public class SuserDaoImpl implements SuserDao{
 			String query = "insert into susers values (seq_susers_no.nextval, ?, ?, ?, NULL)";
 			pstmt = conn.prepareStatement(query);
 
-			pstmt.setString(1, vo.getEmail());
-			pstmt.setString(2, vo.getName());
+			pstmt.setString(1, vo.getName());
+			pstmt.setString(2, vo.getEmail());
 			pstmt.setString(3, vo.getPassword());
 
 			count = pstmt.executeUpdate();
