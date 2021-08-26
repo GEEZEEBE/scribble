@@ -20,6 +20,8 @@ public interface SuserDao {
 	
 	public SuserVo getUser(int user_id);
 	
+	public SuserVo get(int no);
+	
 	public JSONObject checkId(String email);
 	
 }

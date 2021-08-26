@@ -27,10 +27,10 @@
 						<input type="hidden" name="a" value="modify">
 						
 						<label class="block-label" for="name">Name 이름</label>
-						<input id="name" name="name" type="text" value="${suserVo.name }" />
+						<input id="name" name="name" type="text" value="${SuserVo.name }" />
 						<br>
 						<label class="block-label" for="email">Email 이메일</label>
-						<strong>${suserVo.email }</strong>
+						<strong>${SuserVo.email }</strong>
 						<br>
 						<br>
 						<label class="block-label">Password 비밀번호</label>
@@ -39,11 +39,13 @@
 						<input align="center" type="submit" value="수정완료">
 						<br>
 						<br>
-						<br>
 						<div class="bottom">
-							<a href="/scribble/user?a=delete&user_id=${suserVo.user_id }">회원탈퇴</a>
+							<a href="/scribble/user?a=delete&user_id=${SuserVo.user_id }">회원탈퇴</a>
 						</div>
-
+	
+						<!-- /주소 접근 방지용 정보 -->
+						<input id="user_id" name="user_id" type="hidden" value="${SuserVo.user_id }" />
+						
 					</form>
 				</div><!-- /user -->
 			</div><!-- /content -->

@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.json.JSONObject;
+
 import com.scribble.vo.SuserVo;
 import com.scribble.dao.SuserDao;
 import com.scribble.dao.SuserDaoImpl;
@@ -42,41 +44,61 @@ public class SuserServlet extends HttpServlet {
 			
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/user/joinsuccess.jsp");
 			rd.forward(request, response);
+			
 		//Update users' info 	
 		} else if("modify".equals(actionName)){
-			String name = request.getParameter("name");
-			String password = request.getParameter("password");
+			try {	// 주소 직접 접근 방지
+				HttpSession session = request.getSession();
+				SuserVo authUser = (SuserVo)session.getAttribute("authUser");
+				int authuser = authUser.getUser_id();
+	
+				int user_id = Integer.parseInt(request.getParameter("user_id"));
+				SuserDao dao = new SuserDaoImpl();
+				SuserVo vo = dao.get(user_id);
+				
+					if (authuser != vo.getUser_id()) {
+						System.out.println("Unauthorized Access to modify1");
+						response.sendRedirect("/scribble/main");
+					}else {
+						String name = request.getParameter("name");
+						String password = request.getParameter("password");
+						
+						vo.setName(name);
+						vo.setPassword(password);
+						
+						dao.update(vo);
+
+						response.sendRedirect("/scribble/main");	
+					}
+			}catch (Exception e) {
+					System.out.println(e);
+					System.out.println("Unauthorized Access to modify2");
+					HttpSession session = request.getSession();
+					session.removeAttribute("authUser");
+					session.invalidate();
+					WebUtil.redirect(request, response, "/scribble/user?a=loginform");
+			}
 			
-			SuserVo vo = new SuserVo();
-			vo.setName(name);
-			vo.setPassword(password);
-			
-			HttpSession session = request.getSession();
-			SuserVo authUser = (SuserVo)session.getAttribute("authUser");
-			
-			int user_id = authUser.getUser_id();
-			vo.setUser_id(user_id);
-			
-			SuserDao dao = new SuserDaoImpl();
-			dao.update(vo);
-			
-			authUser.setName(name);
-			
-			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/main/index.jsp");
-			rd.forward(request, response);
 		//Update form
 		} else if("modifyform".equals(actionName)) {
-			HttpSession session = request.getSession();
-			SuserVo authUser = (SuserVo)session.getAttribute("authUser");
-			int no = authUser.getUser_id();
+			try {
+				HttpSession session = request.getSession();
+				SuserVo authUser = (SuserVo)session.getAttribute("authUser");
+				int user_id = authUser.getUser_id();
+				
+				SuserDao dao = new SuserDaoImpl();
+				SuserVo SuserVo = dao.getUser(user_id);
+				System.out.println(SuserVo.toString());
+				
+				request.setAttribute("SuserVo", SuserVo);
+				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/user/modifyform.jsp");
+				rd.forward(request, response);;
+			}catch (Exception e) {
+				System.out.println(e);
+				System.out.println("Unauthorized Access to modifyform");
+				WebUtil.redirect(request, response, "/scribble/user?a=loginform");
+			}	
 			
-			SuserDao dao = new SuserDaoImpl();
-			SuserVo suserVo = dao.getUser(no);
-			System.out.println(suserVo.toString());
-			
-			request.setAttribute("suserVo", suserVo);
-			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/user/modifyform.jsp");
-			rd.forward(request, response);
 		// Login	
 		} else if("loginform".equals(actionName)){
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/user/loginform.jsp");
@@ -89,37 +111,65 @@ public class SuserServlet extends HttpServlet {
 			SuserVo vo = dao.getUser(email, password);
 			
 			if(vo==null) {
-				System.out.println("실패");
+				System.out.println("Fail to login");
 				response.sendRedirect("/scribble/user?a=loginform&result=fail");
 			}else {
-				System.out.println("성공");
+				System.out.println("Succeed to login");
+				
 				HttpSession session = request.getSession(true);
 				session.setAttribute("authUser", vo);
 				
 				response.sendRedirect("/scribble/main");
 				//return;
 			}
+			
 		// Logout	
 		} else if("logout".equals(actionName)){
 			HttpSession session = request.getSession();
 			session.removeAttribute("authUser");
 			session.invalidate();
 			response.sendRedirect("/scribble/main");
+			
 		// Delete User	
 		} else if("delete".equals(actionName)){
-			int user_id = Integer.parseInt(request.getParameter("user_id"));
-			SuserVo vo = new SuserVo();
-			vo.setUser_id(user_id);
+			try {	// 주소 직접 접근 방지
+				HttpSession session = request.getSession();
+				SuserVo authUser = (SuserVo)session.getAttribute("authUser");
+				int authuser = authUser.getUser_id();
+	
+				int user_id = Integer.parseInt(request.getParameter("user_id"));
+				SuserDao dao = new SuserDaoImpl();
+				SuserVo vo = dao.getUser(user_id);
+				
+					if (authuser != vo.getUser_id()) {
+						System.out.println("Unauthorized Access to delete1");
+						response.sendRedirect("/scribble/user?a=loginform");
+					}else {
+						System.out.println("Delete Success");
+						
+						dao.delete(user_id);
+						
+						session.removeAttribute("authUser");
+						session.invalidate();
+						response.sendRedirect("/scribble/main");
+					}
+			}catch (Exception e) {
+					System.out.println(e);
+					System.out.println("Unauthorized Access to delete2");
+					WebUtil.redirect(request, response, "/scribble/user?a=loginform");
+			}
 			
+		//ID check	
+		} else if("checkid".equals(actionName)) {
+			String email = request.getParameter("email");
+		
 			SuserDao dao = new SuserDaoImpl();
-			dao.delete(user_id);
+			JSONObject data = dao.checkId(email);
+			System.out.println(data);
 			
-			HttpSession session = request.getSession();
-			session.removeAttribute("authUser");
-			session.invalidate();
-			response.sendRedirect("/scribble/main");
-		} else {
-			WebUtil.redirect(request, response, "/scribble/main");
+		    response.setContentType("application/json");
+		    response.setCharacterEncoding("UTF-8");
+		    response.getWriter().write(data.toString());
 		}
 	}
 

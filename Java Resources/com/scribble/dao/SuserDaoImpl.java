@@ -224,7 +224,7 @@ public class SuserDaoImpl implements SuserDao{
 		}
 		return vo;
 	}	
-	//Modify users' info
+	//Get User_id
 	public SuserVo getUser(int user_id) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -252,6 +252,45 @@ public class SuserDaoImpl implements SuserDao{
 				vo.setEmail(email);
 				vo.setName(name);
 			}
+		} catch (SQLException e) {
+			System.out.println("error:" + e);
+		} finally {
+			try {
+				if (pstmt != null) {
+					pstmt.close();
+				}
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				System.out.println("error:" + e);
+			}
+		}
+		return vo;
+	}
+	//Get users' info
+	public SuserVo get(int no) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		SuserVo vo = new SuserVo();
+
+			try {
+				conn = getConnection();
+				String query = "select * from susers where user_id = ? and isdeleted is NULL "; 
+				pstmt = conn.prepareStatement(query);
+				
+				pstmt.setInt(1, no);
+
+				rs = pstmt.executeQuery();
+				
+				if (rs.next()) {
+					vo.setUser_id(rs.getInt("user_id"));
+					vo.setEmail(rs.getString("Email"));
+					vo.setName(rs.getString("name"));
+					vo.setPassword(rs.getString("password"));
+					vo.setIsdeleted(rs.getString("isdeleted"));
+				}
 		} catch (SQLException e) {
 			System.out.println("error:" + e);
 		} finally {
