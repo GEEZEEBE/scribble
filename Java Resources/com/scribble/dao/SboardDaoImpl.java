@@ -219,7 +219,7 @@ public class SboardDaoImpl implements SboardDao {
 			String query = "UPDATE sboard 													" +
 						   "SET title = ?, content = ?, reg_date = SYSDATE, 		" +
 						   "	img_name =  ?                                     	" +
-						   "WHERE sboard_id = ?													";
+						   "WHERE board_id = ?													";
 			
 			// 
 			
