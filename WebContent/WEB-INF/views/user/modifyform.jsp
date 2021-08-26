@@ -22,26 +22,44 @@
 		<div id="wrapper">
 			<div id="content">
 				<div id="user">
-					
 					<form id="join-form" name="joinForm" method="post" action="/scribble/user">
 						<input type="hidden" name="a" value="modify">
 						
-						<label class="block-label" for="name">Name 이름</label>
-						<input id="name" name="name" type="text" value="${SuserVo.name }" />
-						<br>
-						<label class="block-label" for="email">Email 이메일</label>
-						<strong>${SuserVo.email }</strong>
-						<br>
-						<br>
-						<label class="block-label">Password 비밀번호</label>
-						<input name="password" type="password" value="" />
-						<br>
-						<input align="center" type="submit" value="수정완료">
-						<br>
-						<br>
-						<div class="bottom">
+						<h2 class="blind" align="center">Modify</h2>
+			  			<h3 class="blind" align="center">회원정보수정</h3>
+						
+						<div align="right">
 							<a href="/scribble/user?a=delete&user_id=${SuserVo.user_id }">회원탈퇴</a>
 						</div>
+						
+						<div class="form col-md-6">
+							<div class="form-row">
+							<div class="fixAlignment">
+									<label class="block-label" for="name">NAME</label>
+                                    <input type="text" id="Name" name="Name" class="form-control" aria-label="Last Name" value="${SuserVo.name }" />
+                            </div>
+                            </div>
+							<br>
+							<div class="form-row">
+							<div class="fixAlignment">
+								<label class="block-label" for="email">EMAIL</label>
+								<table>
+								<tr><td><strong>${SuserVo.email }</strong></td></tr>
+								</table>
+							</div>
+							</div>
+							
+                            <div class="form-row">
+                            <div class="fixAlignment">
+                                    <label class="block-label">PASSWORD</label>
+                                    <input id="password" name="password" type="password" maxlength="16" class="form-control" aria-label="Password" value="" />
+                            </div>
+                            </div>
+                            <br>
+							<input align="center" type="submit" value="Completed">
+							<div class="bottom">
+							</div>
+                        </div>
 	
 						<!-- /주소 접근 방지용 정보 -->
 						<input id="user_id" name="user_id" type="hidden" value="${SuserVo.user_id }" />
