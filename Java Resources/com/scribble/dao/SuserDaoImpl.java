@@ -224,7 +224,7 @@ public class SuserDaoImpl implements SuserDao{
 		}
 		return vo;
 	}	
-	//Modify users' info
+	//Get users' info
 	public SuserVo getUser(int user_id) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
