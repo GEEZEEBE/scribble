@@ -24,7 +24,7 @@
 					  						  	
 			  			<h2 class="blind" align="center">SignUp</h2>
 			  			<h3 class="blind" align="center">회원가입</h3>
-			  			
+			  			<br>
 						<div class="form col-md-6">
 							<div class="form-row">
 								<div class="fixAlignment">
