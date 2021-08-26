@@ -163,6 +163,7 @@ public class MainServlet extends HttpServlet {
 					
 					vo.setTitle(title);
 					vo.setContent(content);
+					vo.setImg_name(img_name);					
 										
 					dao.update(vo);
 					
