@@ -19,7 +19,7 @@
 								<li class="search">
 									<a class="fa-search" href="#search">Search</a>
 									<form id="search" method="get" action="#">
-										<input type="text" name="keyword" placeholder="Search" />
+										<input type="text" name="query" placeholder="Search" />
 									</form>
 								</li>
 								<li class="menu">
@@ -138,18 +138,18 @@
 				<nav class="links">
 					<ul>
 					<c:choose>
-					<c:when test="${authUser == null }">
-						<!-- 로그인 전 -->
-						<li><a href="main?a=writeform">Scribble</a></li>
-						<li><a href="user?a=joinform">SignUp</a></li>
-						<li><a href="user?a=loginform">Login</a></li>
-					</c:when>
-					<c:otherwise>
-						<!-- 로그인 후 -->
-						<li><a href="main?a=writeform">Scribble</a></li>
-						<li><a href="user?a=modifyform">Modify My Info</a></li>
-						<li><a href="user?a=logout">Logout</a></li>
-					</c:otherwise>
+						<c:when test="${authUser == null }">
+							<!-- 로그인 전 -->
+							<li><a href="main?a=writeform">Scribble</a></li>
+							<li><a href="user?a=joinform">SignUp</a></li>
+							<li><a href="user?a=loginform">Login</a></li>
+						</c:when>
+						<c:otherwise>
+							<!-- 로그인 후 -->
+							<li><a href="main?a=writeform">Scribble</a></li>
+							<li><a href="user?a=modifyform">Modify My Info</a></li>
+							<li><a href="user?a=logout">Logout</a></li>
+						</c:otherwise>
 					</c:choose>
 					</ul>
 				</nav>

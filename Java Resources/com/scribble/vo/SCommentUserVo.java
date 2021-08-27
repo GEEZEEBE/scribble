@@ -14,7 +14,7 @@ public class SCommentUserVo extends SCommentVo {
 
 	@Override
 	public String toString() {
-		return "SCmntBoardUser [name=" + name + ", getCommentId()=" + getCommentId() + ", getContent()=" + getContent()
+		return "SCommentUserVo [name=" + name + ", getCommentId()=" + getCommentId() + ", getContent()=" + getContent()
 				+ ", getBoardId()=" + getBoardId() + ", getUserId()=" + getUserId() + ", getRegDate()=" + getRegDate()
 				+ ", getIsdeleted()=" + getIsdeleted() + ", toString()=" + super.toString() + ", getClass()="
 				+ getClass() + ", hashCode()=" + hashCode() + "]";

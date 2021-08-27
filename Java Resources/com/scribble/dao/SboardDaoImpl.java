@@ -20,8 +20,8 @@ public class SboardDaoImpl implements SboardDao {
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			String dburl = "jdbc:oracle:thin:@localhost:1521:xe";
-			conn = DriverManager.getConnection(dburl, "c##webdb", "1234");
-//			conn = DriverManager.getConnection(dburl, "webdb", "1234");
+//			conn = DriverManager.getConnection(dburl, "c##webdb", "1234");
+			conn = DriverManager.getConnection(dburl, "webdb", "1234");
 		} catch (ClassNotFoundException e) {
 			System.err.println("JDBC 드라이버 로드 실패!");
 		}
@@ -95,7 +95,7 @@ public class SboardDaoImpl implements SboardDao {
 				vo.setContent(rs.getString("content"));
 				vo.setHit(rs.getInt("hit"));
 				vo.setReg_date(rs.getString("reg_date"));
-				vo.setImg_name("filestorage/" + rs.getString("img_name"));
+				vo.setImg_name(rs.getString("img_name"));
 				vo.setIsdeleted(rs.getString("isdeleted"));
 				vo.setUser_id(rs.getInt("user_id"));				
 				vo.setName(rs.getString("name"));
@@ -145,7 +145,7 @@ public class SboardDaoImpl implements SboardDao {
 				vo.setContent(rs.getString("content"));
 				vo.setHit(rs.getInt("hit"));
 				vo.setReg_date(rs.getString("reg_date"));
-				vo.setImg_name("filestorage/" + rs.getString("img_name"));
+				vo.setImg_name(rs.getString("img_name"));
 				vo.setIsdeleted(rs.getString("isdeleted"));
 				vo.setUser_id(rs.getInt("user_id"));				
 				vo.setName(rs.getString("name"));			
@@ -219,7 +219,7 @@ public class SboardDaoImpl implements SboardDao {
 			String query = "UPDATE sboard 													" +
 						   "SET title = ?, content = ?, reg_date = SYSDATE, 		" +
 						   "	img_name =  ?                                     	" +
-						   "WHERE sboard_id = ?													";
+						   "WHERE board_id = ?													";
 			
 			// 
 			

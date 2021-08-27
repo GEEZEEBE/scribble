@@ -37,7 +37,7 @@ CREATE TABLE susers
   name      VARCHAR2(100) NOT NULL,
   password  VARCHAR2(100) NOT NULL,
   isdeleted VARCHAR2(10) ,
-  CONSTRAINT PK_susers PRIMARY KEY (user_id)
+  CONSTRAINT PK_susers PRIMARY KEY (user_id, email)
 );
 
 ALTER TABLE sboard
@@ -72,12 +72,12 @@ INSERT INTO susers VALUES (seq_susers_no.nextval, 'test@test.test', '홍길동', '1
 SELECT * FROM susers;
 
 INSERT INTO sboard VALUES (seq_sboard_no.nextval, '제목 테스트', '내용 테스트', 5, SYSDATE, 'pic01.jpg', NULL, 1);
-SELECT * FROM sboard ORDER BY hit DESC;
+SELECT * FROM sboard ORDER BY reg_date DESC;
 
 INSERT INTO scomment VALUES (seq_scomment_no.nextval, '코멘트 내용 테스트', 1, 1, SYSDATE, NULL);
 SELECT * FROM scomment;
 
-SELECT ROWNUM AS RNUM, A.*								
+SELECT ROWNUM, A.*								
 FROM ( SELECT *			
 	   FROM sboard b					
 	   JOIN susers u					

@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.net.URLEncoder;
 import java.util.List;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -22,6 +21,8 @@ import com.scribble.dao.SboardDaoImpl;
 import com.scribble.etc.PageCreator;
 import com.scribble.etc.PageVo;
 import com.scribble.util.WebUtil;
+import com.scribble.vo.SCommentUserVo;
+import com.scribble.vo.SCommentVo;
 import com.scribble.vo.SboardSuserVo;
 import com.scribble.vo.SboardVo;
 import com.scribble.vo.SuserVo;
@@ -75,41 +76,49 @@ public class MainServlet extends HttpServlet {
 
 //			System.out.println(list);
 
-			request.setAttribute("list", list);		// 뿌려줄 DB 묶음
+			request.setAttribute("list", list);
 			request.setAttribute("list4", list4);
 			request.setAttribute("listMy", listMy);
-			request.setAttribute("pc", pc);			// 페이지 표시	
-			request.setAttribute("keyword", keyword); //검색창에 키워드 유지하려고?
+			request.setAttribute("pc", pc);
+			request.setAttribute("keyword", keyword);
 			WebUtil.forward(request, response, "/WEB-INF/views/main/index.jsp");
 			
 		} else if ("view".equals(actionName)) {
+
 			int page = 1;
 			if (request.getParameter("page") != null) {
 				page = Integer.parseInt(request.getParameter("page"));
 			}
-			//현재 보고 있는 페이지를 들고 가자
 			
 			String keyword = request.getParameter("keyword"); 
-			//keyword 없으면 null, 있으면 해당 value 들고 가자...
 			
 			int board_id = Integer.parseInt(request.getParameter("no"));
 			
-			//board_id로 DB를 vo로 list에 담아서 가져가자 
-			
 			SboardDao dao = new SboardDaoImpl();
 			
-			dao.upHitCount(board_id); //조회수 계산
+			dao.upHitCount(board_id);
 			
-			SboardVo vo = dao.get(board_id); //get 메서드 실행해서 vo에 담고,
+			SboardVo vo = dao.get(board_id);
+//			System.out.println(vo);
 
-			System.out.println(vo);
-
-			// 게시물 화면에 보내기
+			PageVo pvo = new PageVo();
+			pvo.setKeyword(Integer.toString(board_id));
+			pvo.setPage(page);
+			PageCreator pc = new PageCreator(pvo);
+			
+			SCommentDao cdao = new SCommentDaoImpl();
+			pc.setTotalCount(board_id);
+			pc.calcForPaging();
+			
+			List<SCommentUserVo> clist = cdao.getList(pvo);
+//			System.out.println(clist);
+			
 			request.setAttribute("vo", vo);
+			request.setAttribute("clist", clist);
 			request.setAttribute("page", page);
 			request.setAttribute("keyword", keyword);
+			request.setAttribute("boardNo", board_id);		// 댓글 삭제 후 재진입을 위한 파라미터
 			WebUtil.forward(request, response, "/WEB-INF/views/main/single.jsp");
-			// view.jsp에 뿌리기
 			
 		} else if ("modifyform".equals(actionName)) {
 			try {	// 주소 직접 접근 방지
@@ -122,7 +131,7 @@ public class MainServlet extends HttpServlet {
 				int board_id = Integer.parseInt(request.getParameter("no"));
 				SboardDao dao = new SboardDaoImpl(); 
 				SboardVo vo = dao.get(board_id);
-				System.out.println(vo);
+
 				if (userNo != vo.getUser_id()) {
 					System.out.println(vo);
 					System.out.println("Unauthorized Access");
@@ -146,24 +155,38 @@ public class MainServlet extends HttpServlet {
 				HttpSession session = request.getSession();
 				SuserVo authUser = (SuserVo)session.getAttribute("authUser");
 				int userNo = authUser.getUser_id();
+			
+				String imgName = null;
 				
 				int board_id = Integer.parseInt(request.getParameter("no"));
 				SboardDao dao = new SboardDaoImpl();
 				SboardSuserVo vo = dao.get(board_id);
-	
+				
 				if ( userNo != vo.getUser_id()) {
 					System.out.println("Unauthorized Access");
 					WebUtil.redirect(request, response, "/scribble/main?a=list");
 				} else {
-					String title = request.getParameter("title");
-					String content = request.getParameter("content");	
-					String img_name = request.getParameter("img_name");
-					int page = Integer.parseInt(request.getParameter("page"));
-					String keyword = request.getParameter("keyword");
+					File file = new File(SAVEFOLDER);
+					if (!file.exists())
+						file.mkdirs();
+					
+					MultipartRequest multi = new MultipartRequest(request, SAVEFOLDER,MAXSIZE, ENCTYPE,
+											 new DefaultFileRenamePolicy());
+					
+					String title = multi.getParameter("title");
+					String content = multi.getParameter("content");
+					String page = multi.getParameter("page");
+					String keyword = multi.getParameter("keyword");
+				
+					if (multi.getFilesystemName("img_name") != null) {
+						imgName = multi.getFilesystemName("img_name");
+						vo.setImg_name(imgName);
+					}
 					
 					vo.setTitle(title);
 					vo.setContent(content);
-										
+					
+					System.out.println(vo);
 					dao.update(vo);
 					
 					vo = dao.get(board_id);
@@ -231,14 +254,47 @@ public class MainServlet extends HttpServlet {
 				System.out.println("Unauthorized Access");
 				WebUtil.redirect(request, response, "/scribble/main?a=list");
 			}
-
+			
+		} else if ("reply".equals(actionName)) {
+			int boardId = 0;
+			int page = 0;
+			String keyword = null;
+			
+			try {	// 주소 직접 접근 방지
+				HttpSession session = request.getSession();
+				SuserVo authUser = (SuserVo)session.getAttribute("authUser");
+				int userNo = authUser.getUser_id();
+				
+				boardId = Integer.parseInt(request.getParameter("no"));	
+				String reply = request.getParameter("reply");
+				page = Integer.parseInt(request.getParameter("page"));
+				keyword = request.getParameter("keyword");
+				
+				SCommentVo vo = new SCommentVo();
+				vo.setContent(reply);
+				vo.setBoardId(boardId);
+				vo.setUserId(userNo);
+				
+				System.out.println(vo);
+				
+				SCommentDao dao = new SCommentDaoImpl();
+				dao.insert(vo);
+				
+			} catch (Exception e) {
+				System.out.println(e);
+				System.out.println("Unauthorized Access");
+			} finally {
+				String query_str = "&no=" + boardId + "&page=" + page + "&keyword=" + keyword;
+				WebUtil.redirect(request, response, "/scribble/main?a=view" + query_str);
+			}
+			
 		} else if ("delete".equals(actionName)) {
 			try {	// 주소 직접 접근 방지
 				HttpSession session = request.getSession();
 				SuserVo authUser = (SuserVo)session.getAttribute("authUser");
 				int userNo = authUser.getUser_id();
 			
-				int board_id = Integer.parseInt(request.getParameter("board_id"));
+				int board_id = Integer.parseInt(request.getParameter("no"));
 				int page = Integer.parseInt(request.getParameter("page"));
 				String keyword = request.getParameter("keyword");
 				
@@ -251,8 +307,8 @@ public class MainServlet extends HttpServlet {
 				} else {
 					dao.delete(board_id);
 					
-					String encKeyword = URLEncoder.encode(keyword, "utf-8"); //웹에서 인식하는 것으로 변환?
-					WebUtil.redirect(request, response, "/scribble/main?a=list&no=&page=" + page + "&keyword=" + encKeyword);
+					String encKeyword = URLEncoder.encode(keyword, "utf-8");
+					WebUtil.redirect(request, response, "main?a=list&no=&page=" + page + "&keyword=" + encKeyword);
 				}
 			} catch (Exception e) {
 				System.out.println(e);
@@ -260,23 +316,42 @@ public class MainServlet extends HttpServlet {
 				WebUtil.redirect(request, response, "/scribble/main?a=list");
 			}
 			
-//		} else if ("download".equals(actionName)) {
-//			WebUtil.forward(request, response, "/WEB-INF/views/board/download.jsp");
+		} else if ("cmtdelete".equals(actionName)) {
+			try {	// 주소 직접 접근 방지
+				HttpSession session = request.getSession();
+				SuserVo authUser = (SuserVo)session.getAttribute("authUser");
+				int userNo = authUser.getUser_id();
+			
+				int board_id = Integer.parseInt(request.getParameter("no"));
+				int cmt_id = Integer.parseInt(request.getParameter("cmtNo"));
+				int page = Integer.parseInt(request.getParameter("page"));
+				String keyword = request.getParameter("keyword");
+				System.out.println(board_id + "/" + cmt_id);
+				SCommentDao dao = new SCommentDaoImpl();
+				SCommentUserVo vo = dao.get(cmt_id);
+//				System.out.println(vo);
+	
+				if (userNo != vo.getUserId()) {
+					System.out.println(userNo + "/" + vo.getUserId());
+					System.out.println("Unauthorized Access");
+					WebUtil.redirect(request, response, "/scribble/main?a=list");
+				} else {
+					dao.delete(cmt_id);
+					
+					String encKeyword = URLEncoder.encode(keyword, "utf-8");
+					WebUtil.redirect(request, response, "main?a=view&no=" + board_id + "&page=" + page + "&keyword=" + encKeyword);
+				}
+			} catch (Exception e) {
+				System.out.println(e);
+				System.out.println("Unauthorized Access");
+				WebUtil.redirect(request, response, "/scribble/main?a=list");
+			}
 			
 		} else {
 			WebUtil.redirect(request, response, "/scribble/main?a=list");
 		}
 	}	
 		
-		
-		
-		
-		
-		
-		
-		
-		
-	////////////////////////////////////////////////////////////////////////////////////	
 	
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -8,13 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.jsp.JspWriter;
-import javax.servlet.jsp.PageContext;
-
 import com.scribble.etc.PageVo;
-import com.scribble.util.FileUtil;
 import com.scribble.vo.SCommentUserVo;
 import com.scribble.vo.SCommentVo;
 
@@ -26,8 +20,8 @@ public class SCommentDaoImpl implements SCommentDao {
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			String dburl = "jdbc:oracle:thin:@localhost:1521:xe";
-			conn = DriverManager.getConnection(dburl, "c##webdb", "1234");
-//			conn = DriverManager.getConnection(dburl, "webdb", "1234");
+//			conn = DriverManager.getConnection(dburl, "c##webdb", "1234");
+			conn = DriverManager.getConnection(dburl, "webdb", "1234");
 		} catch (ClassNotFoundException e) {
 			System.err.println("JDBC 드라이버 로드 실패!");
 		}
@@ -44,7 +38,7 @@ public class SCommentDaoImpl implements SCommentDao {
 
 		int start = pvo.getPageStart();
 		int end = pvo.getCountPerPage();
-		int board_id = Integer.parseInt(pvo.getKeyword());
+		int boardId = Integer.parseInt(pvo.getKeyword());
 		
 		try {
 			conn = getConnection();
@@ -56,7 +50,7 @@ public class SCommentDaoImpl implements SCommentDao {
 				    	   "			   JOIN susers u				" + 
 				    	   "			   ON c.user_id = u.user_id		" + 
 				    	   "			   WHERE c.board_id	= ?			" + 
-				    	   "			   AND isdeleted is NULL		" + 
+				    	   "			   AND c.isdeleted is NULL		" + 
 				    	   "			   ORDER BY c.reg_date DESC		" + 
 				    	   "		) A									" + 
 				    	   "		WHERE ROWNUM <= ? + ? 				" + 
@@ -64,7 +58,7 @@ public class SCommentDaoImpl implements SCommentDao {
 				    	   "WHERE RNUM > ?								";
 			pstmt = conn.prepareStatement(query);
 			
-			pstmt.setInt(1, board_id);
+			pstmt.setInt(1, boardId);
 			pstmt.setInt(2, start);
 			pstmt.setInt(3, end);
 			pstmt.setInt(4, start);
@@ -113,7 +107,7 @@ public class SCommentDaoImpl implements SCommentDao {
 				    	   "FROM scomment c				" + 
 				    	   "JOIN susers u				" + 
 				    	   "ON c.user_id = u.user_id	" + 
-				    	   "WHERE c.scomment = ?		"; 
+				    	   "WHERE c.comment_id = ?		"; 
 			pstmt = conn.prepareStatement(query);
 			
 			pstmt.setInt(1, comment_id);
@@ -129,7 +123,7 @@ public class SCommentDaoImpl implements SCommentDao {
 				vo.setIsdeleted(rs.getString("isdeleted"));	
 				vo.setName(rs.getString("name"));
 			}
-
+//			System.out.println(vo);
 		} catch (SQLException e) {
 			System.out.println("error:" + e);
 		} finally {
@@ -234,9 +228,9 @@ public class SCommentDaoImpl implements SCommentDao {
 		try {
 			conn = getConnection();
 
-			String query = "UPDATE scommnet			" +
+			String query = "UPDATE scomment			" +
 						   "SET isdeleted = 'true'	" +
-						   "WHERE no = ?				";
+						   "WHERE comment_id = ?	";
 			pstmt = conn.prepareStatement(query);
 
 			pstmt.setInt(1, comment_id);
@@ -261,7 +255,7 @@ public class SCommentDaoImpl implements SCommentDao {
 
 	// Counting total number of postings.
 	@Override
-	public int getTotalCount(int board_id) {
+	public int getTotalCount(int boardId) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -276,7 +270,7 @@ public class SCommentDaoImpl implements SCommentDao {
 						   "AND isdeleted is NULL		";
 			pstmt = conn.prepareStatement(query);
 			
-			pstmt.setInt(1, board_id);
+			pstmt.setInt(1, boardId);
 			
 			rs = pstmt.executeQuery();
 			
