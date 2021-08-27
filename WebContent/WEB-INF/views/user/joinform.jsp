@@ -17,7 +17,7 @@
 			<div id="content">
 				<div id="user">
 	
-					<form id="join-form" name="joinForm" method="post" action="/mysite/user?a=join">
+					<form id="join-form" name="joinForm" method="post" action="/scribble/user?a=join">
 					  						  	
 			  			<h2 class="blind" align="center">SignUp</h2>
 			  			<h3 class="blind" align="center">회원가입</h3>
@@ -26,12 +26,13 @@
 						<br> 
 						<div class="row gtr-uniform">
 							<div class="col-12">
-                             	<input type="text" id="name" name="name" placeholder="NAME" value="" />                     
+                             	<input type="text" id="name" name="name" placeholder="NAME" value="">                     
                             </div>
                             <br>
 							<div class="col-12">
 								<label class="block-label" for="email"></label>
-								<input type="text" id="email" name="email" placeholder="EMAIL" value="" />
+								<input type="text" id="email" name="email" placeholder="EMAIL" value="">
+
 	                        </div>
               				<div class="col-6 col-12-large">
                   				<ul class="actions stacked">
@@ -42,7 +43,7 @@
 								</ul>
 							</div>
                             <div class="col-12">         
-                                  <input id="password" name="password" type="password" maxlength="16" placeholder="PASSWORD" value="" />
+                                  <input id="password" name="password" type="password" maxlength="16" placeholder="PASSWORD" value="">
                             </div>
                         </div>
                         <br>
