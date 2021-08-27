@@ -36,6 +36,7 @@
 					<div class="view-content">
 					 <p>${fn:replace(vo.content, newLine, "<br>")}</p> 
 					</div>
+
 					<footer>
 						<c:if test="${authUser != null }">						
 							<ul class="actions">
@@ -43,6 +44,7 @@
 								<li><a href="main?a=list" class="button large">Home</a></li>
 							</ul>
 						</c:if>
+
 						<ul class="stats">
 							<li><a href="#" class="icon solid fa-heart">${vo.hit}</a></li>
 						<c:if test="${authUser != null }">	

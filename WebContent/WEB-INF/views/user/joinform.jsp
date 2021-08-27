@@ -9,33 +9,32 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="assets/css/main.css" type="text/css"/>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-	</head>
 </head>
 <body>
-
 	<div id="container">
 		<c:import url="/WEB-INF/views/includes/header.jsp"></c:import><!-- /header -->	
 		<div id="wrapper">
 			<div id="content">
 				<div id="user">
 	
-					<form id="join-form" name="joinForm" method="post" action="/scribble/user">
-					  	<input type="hidden" name="a" value="join">
+					<form id="join-form" name="joinForm" method="post" action="/mysite/user?a=join">
 					  						  	
 			  			<h2 class="blind" align="center">SignUp</h2>
 			  			<h3 class="blind" align="center">회원가입</h3>
-			  			<br>
+			  			<br> 
+						<h4 class="blind" align="center">Create your New Account !</h4>
+						<br> 
 						<div class="form col-md-6">
 							<div class="form-row">
 								<div class="fixAlignment">
-                             		<input type="text" id="name" name="name" class="form-control" aria-label="name" placeholder="NAME" value="" />
+                             		<input type="text" id="name" name="name" placeholder="NAME" value="" />
                            		</div>
                             </div>
                             <br>
 							<div class="form-row">
 								<div class="fixAlignment">
 									<label class="block-label" for="email"></label>
-									<input type="text" id="email" name="email" class="form-control" aria-label="email" placeholder="EMAIL" value=""/>
+									<input type="text" id="email" name="email" placeholder="EMAIL" value="" />
 	                        		<br>
 	                        		<input type="button" id="CheckId" value="Email Check">
 									<p id="notice"></p>
@@ -43,7 +42,7 @@
                         	</div>
                             <div class="form-row">
                                 <div class="fixAlignment">
-                                    <input id="password" name="password" type="password" maxlength="16" class="form-control" aria-label="password" placeholder="PASSWORD" value="" />
+                                    <input id="password" name="password" type="password" maxlength="16" placeholder="PASSWORD" value="" />
                                 </div>
                             </div>
                         </div>
@@ -61,10 +60,11 @@
 				</div><!-- /user -->
 			</div><!-- /content -->
 		</div><!-- /wrapper -->
+		<c:import url="/WEB-INF/views/includes/footer.jsp"></c:import><!-- /footer -->
 	</div> <!-- /container -->
-<c:import url="/WEB-INF/views/includes/footer.jsp"></c:import><!-- /footer -->
 </body>
 <script>
+
 	var isValidId = false;
 	$(document).ready(function (){   
 	   $("#CheckId").on("click", function(event) {
@@ -111,7 +111,6 @@
 		}
 		return rv;
 	});
-
-
+	
 </script>
 </html>

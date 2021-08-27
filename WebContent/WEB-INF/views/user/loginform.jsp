@@ -21,7 +21,9 @@
 						
 						<h2 class="blind" align="center">Login</h2>
 			  			<h3 class="blind" align="center">로그인</h3>
-						 
+						<br> 
+						<h4 class="blind" align="center">Input your information.</h4>
+						<br> 
 						<input id="email" name="email" placeholder="EMAIL" type="text" value=""> 
 						<br>
 						<input name="password" type="password" placeholder="PASSWORD" value="">

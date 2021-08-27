@@ -21,8 +21,8 @@ public class SuserDaoImpl implements SuserDao{
 	      Class.forName("oracle.jdbc.driver.OracleDriver");
 //	      String dburl = "jdbc:oracle:thin:@10.211.55.4:1521:xe";
 	      String dburl = "jdbc:oracle:thin:@localhost:1521:xe";
-	      conn = DriverManager.getConnection(dburl, "webdb", "1234");
-
+//	      conn = DriverManager.getConnection(dburl, "webdb", "1234");
+	      conn = DriverManager.getConnection(dburl, "c##webdb", "1234");
 	    } catch (ClassNotFoundException e) {
 	      System.err.println("JDBC 드라이버 로드 실패!");
 	    }
@@ -330,7 +330,7 @@ public class SuserDaoImpl implements SuserDao{
 				data.put("count", cnt);
 			}
 		} catch (SQLException e) {
-			System.out.println("error:" + e);
+			System.out.println("error:" + e.getMessage());
 		} finally {
 			try {
 				if (pstmt != null) {
@@ -340,7 +340,7 @@ public class SuserDaoImpl implements SuserDao{
 					conn.close();
 				}
 			} catch (SQLException e) {
-				System.out.println("error:" + e);
+				System.out.println("error:" + e.getMessage());
 			}
 		}
 		return data;

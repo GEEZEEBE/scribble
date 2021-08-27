@@ -63,6 +63,9 @@
 												<li><input type="submit" value="Done" /></li>
 												<li><input type="reset" value="Cancel" /></li>
 											</ul>
+												<input type="hidden" name="no" value="${vo.board_id}">
+												<input type="hidden" name="page" value="${page}">
+												<input type="hidden" name="keyword" value="${keyword}">
 										</div>
 									</div>
 								</form>											

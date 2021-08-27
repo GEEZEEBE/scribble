@@ -187,6 +187,7 @@ public class MainServlet extends HttpServlet {
 					vo.setContent(content);
 					
 					System.out.println(vo);
+
 					dao.update(vo);
 					
 					vo = dao.get(board_id);
