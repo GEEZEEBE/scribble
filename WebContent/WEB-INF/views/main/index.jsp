@@ -71,11 +71,11 @@
 			<c:choose>
 				<c:when test="${pc.next}">
 					<li>
-						<a href="<c:url value='/main?a=list&no=&page=${pc.endPage+1}&keyword=${keyword}'/>" class="button large next">Previous Page</a>
+						<a href="<c:url value='/main?a=list&no=&page=${pc.endPage+1}&keyword=${keyword}'/>" class="button large next">Next Page</a>
 					</li>
 				</c:when>
 				<c:otherwise>
-					<li><a href="<c:url value='/main?a=list&no=&page=${pc.endPage+1}&keyword=${keyword}'/>" class="disabled button large next">Previous Page</a></li>
+					<li><a href="<c:url value='/main?a=list&no=&page=${pc.endPage+1}&keyword=${keyword}'/>" class="disabled button large next">Next Page</a></li>
 				</c:otherwise>
 			</c:choose>
 		</ul>

@@ -7,7 +7,7 @@
 								<h2>About</h2>
 								<p>Mauris neque quam, fermentum ut nisl vitae, convallis maximus nisl. Sed mattis nunc id lorem euismod amet placerat. Vivamus porttitor magna enim, ac accumsan tortor cursus at phasellus sed ultricies.</p>
 								<ul class="actions">
-									<li><a href="main?a=list" class="button">Home</a></li>
+									<li><a href="main?a=list&no=${vo.board_id}&page=${page}&keyword=${keyword}" class="button">Home</a></li>
 								</ul>
 							</section>
 

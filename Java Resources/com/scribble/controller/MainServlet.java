@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -97,8 +98,29 @@ public class MainServlet extends HttpServlet {
 			
 			SboardDao dao = new SboardDaoImpl();
 			
-			dao.upHitCount(board_id);
-			
+			// 동일 페이지 조회수 증가 방지 - Cookie
+			Boolean visitor = false;
+			Cookie[] cookies = request.getCookies();			// 쿠키 불러오기			
+			for (Cookie cookie : cookies) {						// 모든 쿠키 확인
+				if (cookie.getName().equals("visited")) {		// 쿠키 중에 visited 이라는 이름이 있는지 확인
+					visitor = true;								// 이전 방문 클라이언트
+					if (cookie.getValue().contains(request.getParameter("no"))) {	// visited 안에 해당 게시물 번호가 있는지 확인
+						// 쿠키에 visited가 있고 해당 게시물 번호가 있으면 이전에 방문한 클라이언트 (조회수 증가하지 않음)
+					} else {									// visited는 있지만 해당 게시물 번호가 없으면 번호 추가해 주고 조회수 증가
+						cookie.setValue(cookie.getValue() + "_" + request.getParameter("no"));
+						response.addCookie(cookie);
+						dao.upHitCount(board_id);
+					}
+				}
+			}
+			if (!visitor) {										// visited 쿠키가 없는 경우 쿠키 만들고 조회수 증가
+				Cookie cookie1 = new Cookie("visited", request.getParameter("no"));
+				response.addCookie(cookie1);
+				System.out.println("visited Cookie 생성!");
+				dao.upHitCount(board_id);
+			}
+			// 동일 페이지 조회수 증가 방지 - Cookie
+						
 			SboardVo vo = dao.get(board_id);
 //			System.out.println(vo);
 
