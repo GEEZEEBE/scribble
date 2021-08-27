@@ -163,6 +163,7 @@ public class MainServlet extends HttpServlet {
 					
 					vo.setTitle(title);
 					vo.setContent(content);
+					vo.setImg_name(img_name);					
 										
 					dao.update(vo);
 					
@@ -238,7 +239,7 @@ public class MainServlet extends HttpServlet {
 				SuserVo authUser = (SuserVo)session.getAttribute("authUser");
 				int userNo = authUser.getUser_id();
 			
-				int board_id = Integer.parseInt(request.getParameter("board_id"));
+				int board_id = Integer.parseInt(request.getParameter("no"));
 				int page = Integer.parseInt(request.getParameter("page"));
 				String keyword = request.getParameter("keyword");
 				
