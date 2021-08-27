@@ -30,7 +30,7 @@
 						
 								<br>
 								<c:if test="${param.result eq 'fail' }">
-								<h3 align="center">로그인이 실패했습니다. 다시입력해주세요</h3>
+								<h3 align="center" style="color: #ff6666">로그인이 실패했습니다. 다시입력해주세요.</h3>
 								</c:if>
 						<br>
 						<h2 align="center">

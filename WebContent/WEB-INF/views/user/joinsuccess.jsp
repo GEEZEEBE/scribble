@@ -18,8 +18,8 @@
 					<h3 class="jr-success" align="center">
 						Welcome to Scribble!
 						<br>
-						회원가입을 축하합니다.
 						<br>
+						회원가입을 축하합니다.
 						<br>
 						<br>
 						<br>

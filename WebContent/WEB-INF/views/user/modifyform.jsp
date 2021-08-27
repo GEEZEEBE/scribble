@@ -27,31 +27,33 @@
 						
 						<h2 class="blind" align="center">Modify</h2>
 			  			<h3 class="blind" align="center">회원정보수정</h3>
-						<br>  
-						<div align="right">
-							<a href="/scribble/user?a=delete&user_id=${SuserVo.user_id }">회원탈퇴</a>
-						</div>
 						<br>
-						<h3 class="blind" align="left"> ${SuserVo.email } 's </h3>
+						<h3 class="blind" align="center"> ${SuserVo.email } 's </h3>
 						<br>
-						<div class="form col-md-6">
-							<div class="form-row">
-							<div class="fixAlignment">
-									<input id="name" name="name" type="text"  value="${SuserVo.name }" /></div>
+						<div class="row gtr-uniform">
+							<div class="col-12-large">
+									<input id="name" name="name" type="text"  value="${SuserVo.name }" />
                             </div>
 							<br>
-                            <div class="form-row">
-                            <div class="fixAlignment">
+                            <div class="col-12-large">         
                                     <input id="password" name="password" type="password" maxlength="16" placeholder="PASSWORD" value="" />
                             </div>
-                            </div>
+                      	</div>
                             <br>
-                            <div align="center">
-							<input type="submit" value="Completed">
-							<div class="bottom">
+                            <div class="row">
+                				<div class="col-6 col-12-large">
+                    				<ul class="actions stacked">
+                       					<li>
+                            				<input class="button fit" type="submit" value="Completed">
+										</li>
+										 <br>
+										<li>
+											 <h4 align="center" style="color: #ff6666; font-weight: bold"> Delete My Information </h4>
+                            				<a href="/scribble/user?a=delete&user_id=${SuserVo.user_id }" class="button fit">DELETE</a>
+                        				</li>
+                    				</ul>
+								</div>
 							</div>
-							</div>
-                        </div>
 	
 						<!-- /주소 접근 방지용 정보 -->
 						<input id="user_id" name="user_id" type="hidden" value="${SuserVo.user_id }" />

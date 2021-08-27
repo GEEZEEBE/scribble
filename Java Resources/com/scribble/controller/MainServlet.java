@@ -1,5 +1,6 @@
 package com.scribble.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.util.List;
@@ -28,7 +29,11 @@ import com.scribble.vo.SuserVo;
 @WebServlet("/main")
 public class MainServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+    
+	private static final String  SAVEFOLDER = "C:/mini_Project/scribble/WebContent/filestorage/";
+	private static final String ENCTYPE = "UTF-8";
+	private static int MAXSIZE = 5*1024*1024;
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 			
@@ -87,7 +92,7 @@ public class MainServlet extends HttpServlet {
 			String keyword = request.getParameter("keyword"); 
 			//keyword 없으면 null, 있으면 해당 value 들고 가자...
 			
-			int board_id = Integer.parseInt(request.getParameter("board_id"));
+			int board_id = Integer.parseInt(request.getParameter("no"));
 			
 			//board_id로 DB를 vo로 list에 담아서 가져가자 
 			
@@ -108,16 +113,18 @@ public class MainServlet extends HttpServlet {
 			
 		} else if ("modifyform".equals(actionName)) {
 			try {	// 주소 직접 접근 방지
+				
 				HttpSession session = request.getSession();
 				SuserVo authUser = (SuserVo)session.getAttribute("authUser");
 				int userNo = authUser.getUser_id();  
 			
 				String keyword = request.getParameter("keyword");
-				int board_id = Integer.parseInt(request.getParameter("board_id"));
+				int board_id = Integer.parseInt(request.getParameter("no"));
 				SboardDao dao = new SboardDaoImpl(); 
 				SboardVo vo = dao.get(board_id);
-				
+				System.out.println(vo);
 				if (userNo != vo.getUser_id()) {
+					System.out.println(vo);
 					System.out.println("Unauthorized Access");
 					WebUtil.redirect(request, response, "/scribble/main?a=list");
 				} else {
@@ -126,7 +133,7 @@ public class MainServlet extends HttpServlet {
 					request.setAttribute("vo", vo);
 					request.setAttribute("page", page);
 					request.setAttribute("keyword", keyword);
-					WebUtil.forward(request, response, "/WEB-INF/views/board/modifyform.jsp");
+					WebUtil.forward(request, response, "/WEB-INF/views/main/modifyform.jsp");
 				}
 			} catch (Exception e) {
 				System.out.println(e);
@@ -140,7 +147,7 @@ public class MainServlet extends HttpServlet {
 				SuserVo authUser = (SuserVo)session.getAttribute("authUser");
 				int userNo = authUser.getUser_id();
 				
-				int board_id = Integer.parseInt(request.getParameter("board_id"));
+				int board_id = Integer.parseInt(request.getParameter("no"));
 				SboardDao dao = new SboardDaoImpl();
 				SboardSuserVo vo = dao.get(board_id);
 	
@@ -149,7 +156,8 @@ public class MainServlet extends HttpServlet {
 					WebUtil.redirect(request, response, "/scribble/main?a=list");
 				} else {
 					String title = request.getParameter("title");
-					String content = request.getParameter("content");					
+					String content = request.getParameter("content");	
+					String img_name = request.getParameter("img_name");
 					int page = Integer.parseInt(request.getParameter("page"));
 					String keyword = request.getParameter("keyword");
 					
@@ -162,7 +170,7 @@ public class MainServlet extends HttpServlet {
 					request.setAttribute("vo", vo);
 					request.setAttribute("page", page);
 					request.setAttribute("keyword", keyword);
-					WebUtil.forward(request, response, "/WEB-INF/views/board/view.jsp");
+					WebUtil.forward(request, response, "/WEB-INF/views/main/single.jsp");
 				}
 			} catch (Exception e) {
 				System.out.println(e);
@@ -170,15 +178,13 @@ public class MainServlet extends HttpServlet {
 				WebUtil.redirect(request, response, "/scribble/main?a=list");
 			}
 			
-			//////////////////////////08/25 11:30 /////////////////////////
-			
 		} else if ("writeform".equals(actionName)) {
 			try {	// 주소 직접 접근 방지
-//				HttpSession session = request.getSession();
-//				SuserVo authUser = (SuserVo)session.getAttribute("authUser");
-//				authUser.getUser_id();				
+				HttpSession session = request.getSession();
+				SuserVo authUser = (SuserVo)session.getAttribute("authUser");
+				authUser.getUser_id();				
 				
-				WebUtil.forward(request, response, "/writeform.jsp");
+				WebUtil.forward(request, response, "/WEB-INF/views/main/writeform.jsp");
 				
 			} catch (Exception e) {
 				System.out.println(e);
@@ -188,40 +194,29 @@ public class MainServlet extends HttpServlet {
 
 		} else if ("write".equals(actionName)) {
 			try {	// 주소 직접 접근 방지
-//				HttpSession session = request.getSession();
-//				SuserVo authUser = (SuserVo)session.getAttribute("authUser");
-//				int userNo = authUser.getUser_id();
+				HttpSession session = request.getSession();
+				SuserVo authUser = (SuserVo)session.getAttribute("authUser");
+				int userNo = authUser.getUser_id();
 			
+				String imgName = null;
 				
+				File file = new File(SAVEFOLDER);
+				if (!file.exists())
+					file.mkdirs();
 				
-				int user_id = 1; // "1" ,로그인기능 병합시 삭제
-				String img_name = "beauty"; // "beauty" ,로그인기능 병합시 삭제				
-				String title = request.getParameter("title");
-				String content = request.getParameter("content");
-//			
-//				File file = new File(SAVEFOLDER);
-//				if (!file.exists())
-//					file.mkdirs();
-//				
-//				MultipartRequest multi = new MultipartRequest(request, SAVEFOLDER,MAXSIZE, ENCTYPE,
-//										 new DefaultFileRenamePolicy());
-//				
-//				String title = multi.getParameter("title");
-//				String content = multi.getParameter("content");
-//
-//			
-//				if (multi.getFilesystemName("img_name") != null) {
-//					img_name = multi.getFilesystemName("img_name");
-//
-//				}
-//			
-//				
-//				//참고용"board_id,  title,content, hit, reg_date,img_name,isdeleted, user_id"
+				MultipartRequest multi = new MultipartRequest(request, SAVEFOLDER,MAXSIZE, ENCTYPE,
+										 new DefaultFileRenamePolicy());
+				
+				String title = multi.getParameter("title");
+				String content = multi.getParameter("content");
+			
+				if (multi.getFilesystemName("img_name") != null) {
+					imgName = multi.getFilesystemName("img_name");
+				}
+				
 				SboardVo vo = new SboardVo();
-
-				
-				vo.setUser_id(user_id); // 로그인 기능 병합시 변경			
-				vo.setImg_name(img_name); // 로그인 기능 병합시 변경				
+				vo.setUser_id(userNo);
+				vo.setImg_name(imgName);
 				vo.setTitle(title);
 				vo.setContent(content);
 												

@@ -24,34 +24,32 @@
 			  			<br> 
 						<h4 class="blind" align="center">Create your New Account !</h4>
 						<br> 
-						<div class="form col-md-6">
-							<div class="form-row">
-								<div class="fixAlignment">
-                             		<input type="text" id="name" name="name" placeholder="NAME" value="" />
-                           		</div>
+						<div class="row gtr-uniform">
+							<div class="col-12">
+                             	<input type="text" id="name" name="name" placeholder="NAME" value="" />                     
                             </div>
                             <br>
-							<div class="form-row">
-								<div class="fixAlignment">
-									<label class="block-label" for="email"></label>
-									<input type="text" id="email" name="email" placeholder="EMAIL" value="" />
-	                        		<br>
-	                        		<input type="button" id="CheckId" value="Email Check">
-									<p id="notice"></p>
-	                        	</div>
-                        	</div>
-                            <div class="form-row">
-                                <div class="fixAlignment">
-                                    <input id="password" name="password" type="password" maxlength="16" placeholder="PASSWORD" value="" />
-                                </div>
+							<div class="col-12">
+								<label class="block-label" for="email"></label>
+								<input type="text" id="email" name="email" placeholder="EMAIL" value="" />
+	                        </div>
+              				<div class="col-6 col-12-large">
+                  				<ul class="actions stacked">
+                     				<li>
+                     					<input class="button fit" type="button" id="CheckId" value="Email Check">
+										<p id="notice"></p>
+                        	 		</li> 
+								</ul>
+							</div>
+                            <div class="col-12">         
+                                  <input id="password" name="password" type="password" maxlength="16" placeholder="PASSWORD" value="" />
                             </div>
                         </div>
                         <br>
 						<fieldset class="blind" align="center">
-							<legend>[ 약관동의 ]</legend>
-							<br>	
+							<legend style="color: #2ebaae; font-weight: bold">[ 약관동의 ]</legend>	
 							<input id="agree-prov" type="checkbox" name="agreeProv" value="y" />
-							<label for="agree-prov">서비스 약관에 동의합니다.</label>
+							<label for="agree-prov" style="color: #2ebaae">서비스 약관에 동의합니다.</label>
 						</fieldset>	
 							<h3 class="blind" align="center">
 							<input type="submit" value="SignUp" id="submitBtn" disabled="true" />
@@ -80,13 +78,13 @@
 	   				// alert(data.count); 		// {"count":0} or {"count":1}
 	   				if (data.count == 1) {
 	   					isValidId = false;
-	   					$("#notice").css("color","red").text("이미 사용 중인 아이디입니다.");
+	   					$("#notice").css("color","#ff6666").text("이미 사용 중인 아이디입니다.");
 	   				} else if ($("#email").val() == '') {
 	   					isValidId = false;
-	   					$("#notice").css("color","violet").text("이메일을 입력하세요.");
+	   					$("#notice").css("color","#ff99ff").text("이메일을 입력하세요.");
 	   				} else {
 	   					isValidId = true;
-	   					$("#notice").css("color","blue").text("사용 가능한 아이디입니다.");
+	   					$("#notice").css("color","#2ebaae").text("사용 가능한 아이디입니다.");
 	   				}
 	   			}
 	   		}); // ajax

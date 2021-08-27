@@ -27,6 +27,7 @@ public class SCommentDaoImpl implements SCommentDao {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 //			String dburl = "jdbc:oracle:thin:@10.211.55.4:1521:xe";
 			String dburl = "jdbc:oracle:thin:@localhost:1521:xe";
+//			conn = DriverManager.getConnection(dburl, "c##webdb", "1234");
 			conn = DriverManager.getConnection(dburl, "webdb", "1234");
 		} catch (ClassNotFoundException e) {
 			System.err.println("JDBC 드라이버 로드 실패!");
