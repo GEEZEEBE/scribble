@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<% pageContext.setAttribute( "newLine", "\n" ); %>
 
 <!DOCTYPE HTML>
 
@@ -29,18 +31,18 @@
 				</div>
 				<div class="meta">
 					<time class="published" datetime=${vo.reg_date}>${vo.reg_date}</time>
-					<a href="#" class="author"><span class="name">${vo.name}</span><img src="images/avatar.jpg" alt="" /></a>
+					<a href="" class="author"><span class="name">${vo.name}</span><img src="images/avatar.jpg" alt="" /></a>
 				</div>
 			</header>
-			<a href="/main.jsp?a=view" class="image featured"><img src="${vo.img_name}" alt="" /></a>
-			<p>${vo.content}</p>
+			<a href="main?a=view&no=${vo.board_id}&page=${pc.paging.page}&keyword=${keyword}" class="image featured"><img src="filestorage/${vo.img_name}" alt="" /></a>
+			<p>${fn:replace(vo.content, newLine, "<br>")}</p>
 			<footer>
 				<ul class="actions">
 					<li><a href="main?a=view&no=${vo.board_id}&page=${pc.paging.page}&keyword=${keyword}" class="button large">Continue Reading</a></li>
 				</ul>
 				<ul class="stats">
-					<li><a href="#">General</a></li>
-					<li><a href="#" class="icon solid fa-heart">${vo.hit}</a></li>
+					<li><a href="">General</a></li>
+					<li><a href="" class="icon solid fa-heart">${vo.hit}</a></li>
 				</ul>
 			</footer>
 		</article>
@@ -85,7 +87,7 @@
 
 	<!-- Intro -->
 	<section id="intro">
-		<a href="#" class="logo"><img src="images/logo.jpg" alt="" /></a>
+		<a href="" class="logo"><img src="images/logo.jpg" alt="" /></a>
 		<header>
 			<h2>SCRIBBLE PAPERS</h2>
 			<p>YOU CAN SCRIBBLE ANYTHING PAPERS HERE</a></p>
@@ -106,8 +108,6 @@
 					<a href="main?a=view&no=${vo.board_id}&page=${pc.paging.page}&keyword=${keyword}" class="image"><img src="${vo.img_name}" alt="" /></a>
 				</article>
 			</c:forEach>
-
-			
 
 		</div>
 	</section>

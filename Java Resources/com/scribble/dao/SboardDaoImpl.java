@@ -96,7 +96,7 @@ public class SboardDaoImpl implements SboardDao {
 				vo.setContent(rs.getString("content"));
 				vo.setHit(rs.getInt("hit"));
 				vo.setReg_date(rs.getString("reg_date"));
-				vo.setImg_name("filestorage/" + rs.getString("img_name"));
+				vo.setImg_name(rs.getString("img_name"));
 				vo.setIsdeleted(rs.getString("isdeleted"));
 				vo.setUser_id(rs.getInt("user_id"));				
 				vo.setName(rs.getString("name"));
@@ -146,7 +146,7 @@ public class SboardDaoImpl implements SboardDao {
 				vo.setContent(rs.getString("content"));
 				vo.setHit(rs.getInt("hit"));
 				vo.setReg_date(rs.getString("reg_date"));
-				vo.setImg_name("filestorage/" + rs.getString("img_name"));
+				vo.setImg_name(rs.getString("img_name"));
 				vo.setIsdeleted(rs.getString("isdeleted"));
 				vo.setUser_id(rs.getInt("user_id"));				
 				vo.setName(rs.getString("name"));			

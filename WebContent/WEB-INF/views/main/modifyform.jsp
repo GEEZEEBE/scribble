@@ -22,7 +22,6 @@
 					<div id="main">
 
 						<!-- Post -->
-						<form class="board-form" method="post" action="/scribble/main">
 						<input type = "hidden" name = "a" value="modify">
 							
 							<article class="post">
@@ -38,8 +37,13 @@
 								</header>
 								<!-- <span class="image featured"><img src="images/pic01.jpg" alt="" /></span>  -->
 									
-								<form method="post" action="#">
+								<form method="post" action="main?a=modify&no=${vo.board_id}" enctype="multipart/form-data">
 									<div class="row gtr-uniform">
+										<div class="col-12">
+											<span class="image fit">											
+												<img src="filestorage/${vo.img_name}" alt="" />
+											</span>
+										</div>
 										<div class="col-6 col-12-xsmall">
 											<input type="text" name="title" id="demo-name" value="${vo.title}" />
 										</div>
@@ -48,13 +52,13 @@
 										</div>
 										<div class="col-12">
 											<div class="col-6 col-12-xsmall">
-											<!--  	<c:if test="${vo.img_name!=null}">-->
-												<h1>image upload</h1><input type="file" name="demo-name" id="demo-name" value="${vo.img_name}" />
-											<!--	</c:if> -->
+												<h1>image upload</h1><input type="file" name="img_name" id="demo-name" value="" />
 											</div>
 										</div>
 										<br>
 										<div class="col-12">
+											<input type="hidden" name="page" value="${param.page}">
+											<input type="hidden" name="keyword" value="${parma.keyword}">
 											<ul class="actions">
 												<li><input type="submit" value="Done" /></li>
 												<li><input type="reset" value="Cancel" /></li>
@@ -66,8 +70,6 @@
 									</div>
 								</form>											
 							</article>
-							
-						</form>
 					</div>
 
 
