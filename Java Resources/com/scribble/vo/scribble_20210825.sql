@@ -85,4 +85,27 @@ FROM ( SELECT *
 	   WHERE b.isdeleted is NULL		
 	   ORDER BY b.hit DESC			
 ) A									
-WHERE ROWNUM < 5;							
+WHERE ROWNUM < 5;	
+
+
+SELECT *					
+FROM scomment c				
+JOIN susers u				
+ON c.user_id = u.user_id	
+WHERE c.comment_id = 1;		
+
+
+SELECT *															
+FROM ( SELECT ROWNUM AS RNUM, A.*									
+		FROM ( SELECT *												
+			   FROM sboard b										
+			   JOIN susers u										
+			   ON b.user_id = u.user_id								
+			   WHERE (b.title || b.content || b.reg_date || u.name)	
+			   LIKE '&test&'												
+			   AND b.isdeleted is NULL								
+			   ORDER BY b.reg_date DESC								
+		) A															
+		WHERE ROWNUM <= 10 										
+) 																	
+WHERE RNUM > 5;														
