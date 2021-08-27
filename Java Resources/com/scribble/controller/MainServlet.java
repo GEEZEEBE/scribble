@@ -45,6 +45,7 @@ public class MainServlet extends HttpServlet {
 			String keyword = "";
 			if (request.getParameter("keyword") != null) {
 				keyword = request.getParameter("keyword");
+				System.out.println("keyword : " + keyword);
 			}
 			
 			int page = 1;

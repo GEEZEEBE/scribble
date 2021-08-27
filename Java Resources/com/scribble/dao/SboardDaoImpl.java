@@ -66,13 +66,13 @@ public class SboardDaoImpl implements SboardDao {
 				String query = "SELECT *															" + 
 					    	   "FROM ( SELECT ROWNUM AS RNUM, A.*									" + 
 					    	   "		FROM ( SELECT *												" + 
-					    	   "			   FROM sboard b                                      " +
-					    	   "			   JOIN susers u											" + 
-					    	   "			   ON b.user_id = u.user_id									" + 
+					    	   "			   FROM sboard b										" +
+					    	   "			   JOIN susers u										" + 
+					    	   "			   ON b.user_id = u.user_id								" + 
 					    	   "			   WHERE (b.title || b.content || b.reg_date || u.name)	" + 
 					    	   "			   LIKE ?												" + 
-					    	   "			   AND isdeleted is NULL								" + 
-					    	   "			   ORDER BY reg_date DESC								" + 
+					    	   "			   AND b.isdeleted is NULL								" + 
+					    	   "			   ORDER BY b.reg_date DESC								" + 
 					    	   "		) A															" + 
 					    	   "		WHERE ROWNUM <= ? + ? 										" + 
 					    	   ") 																	" + 
@@ -313,7 +313,7 @@ public class SboardDaoImpl implements SboardDao {
 							   "ON b.user_id = u.user_id										" +
 							   "WHERE (b.title || b.content || b.reg_date || u.name)	" +
 							   "LIKE ?													" +
-							   "AND isdeleted is NULL									";
+							   "AND b.isdeleted is NULL									";
 				pstmt = conn.prepareStatement(query);
 				
 				pstmt.setString(1, "%" + keyword + "%");
