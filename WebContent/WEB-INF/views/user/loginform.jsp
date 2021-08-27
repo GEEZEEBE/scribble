@@ -40,7 +40,7 @@
 					
 				</div><!-- /user -->
 			</div><!-- /content -->
-		</div><!-- /wrapper -->`
+		</div><!-- /wrapper -->
 	</div> <!-- /container -->
 <c:import url="/WEB-INF/views/includes/footer.jsp"></c:import><!-- /footer -->
 </body>
