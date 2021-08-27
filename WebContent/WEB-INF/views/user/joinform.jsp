@@ -71,7 +71,7 @@
 	   var params = $("form").serialize(); 		// 폼태그의 모든 파라미터 저장
 	   
 	   		$.ajax({
-	   			url:"/mysite/user?a=checkid", 	// request 할 servlet 주소
+	   			url:"/scribble/user?a=checkid", 	// request 할 servlet 주소
 	   			dataType:"json",
 	   			type:"post",
 	   			data:params, 					// 전달할 파라미터 
