@@ -159,7 +159,7 @@ public class SuserServlet extends HttpServlet {
 					WebUtil.redirect(request, response, "/scribble/user?a=loginform");
 			}
 			
-		// ID check	
+		// Email check	
 		} else if("checkid".equals(actionName)) {
 			String email = request.getParameter("email");
 		

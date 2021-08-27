@@ -226,7 +226,7 @@ public class SuserDaoImpl implements SuserDao{
 		}
 		return vo;
 	}	
-	//Get User_id
+	//Get users' info
 	public SuserVo getUser(int user_id) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -309,7 +309,7 @@ public class SuserDaoImpl implements SuserDao{
 		}
 		return vo;
 	}
-	//Check ID	
+	//Email Check	
 	public JSONObject checkId(String email) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
